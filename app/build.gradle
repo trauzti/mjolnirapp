@@ -12,7 +12,7 @@ android {
         versionName "1.0"
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
-                output.outputFile = new File(output.outputFile.parent, output.outputFile.name.replace(".apk", "-" + defaultConfig.versionName + ".apk"))
+                output.outputFile = new File(output.outputFile.parent, "mjolnir-" + defaultConfig.versionName + ".apk")
             }
         }
     }
