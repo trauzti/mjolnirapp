@@ -20,6 +20,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        Timetable.loadRejectedClasses(this);
 
         int[] buttonIds = {R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6, R.id.day7};
 
@@ -58,4 +59,6 @@ public class MainActivity extends ActionBarActivity {
         });
 
     }
+
+
 }

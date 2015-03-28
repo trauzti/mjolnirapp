@@ -16,6 +16,10 @@ import java.util.List;
 public class DayScheduleActivity extends ActionBarActivity {
 
     public final String TAG = DayScheduleActivity.class.getName();
+    private List<Item> items = new ArrayList<Item>();
+    private TwoTextArrayAdapter adapter;
+    private int day = 0;
+
 
     private ListView lv;
     @Override
@@ -24,7 +28,7 @@ public class DayScheduleActivity extends ActionBarActivity {
         setContentView(R.layout.activity_day_schedule);
         lv = (ListView) findViewById(R.id.list);
         Intent i = getIntent();
-        final int day = i.getIntExtra("day", 0);
+        day = i.getIntExtra("day", 0);
         Log.d(TAG, "day=" + day);
         //Toast.makeText(this, "day=" + day, Toast.LENGTH_LONG).show();
         ActionBar actionBar = getSupportActionBar();
@@ -32,29 +36,37 @@ public class DayScheduleActivity extends ActionBarActivity {
         String days[] = {"","mánudagur", "þriðjudagur", "miðvikudagur", "fimmtudagur", "föstudagur", "laugardagur", "sunnudagur"};
         actionBar.setTitle(days[day]);
 
-        List<Item> items = new ArrayList<Item>();
+
+
+        adapter = new TwoTextArrayAdapter(this, items);
+        lv.setAdapter(adapter);
+        setItems();
+    }
+
+
+    public void setItems() {
+        items.clear();
         items.add(new Header("SALUR 1"));
-        for (CT ct: Timetable.getClassesForWeekday(day, 1)) {
-            items.add(new ListItem(ct.time, ct.name));
+        for (ClassAndTime classAndTime : Timetable.getClassesForWeekday(day, 1)) {
+            if (!Timetable.rejectedMap.get(classAndTime.name)) {
+                items.add(new ListItem(classAndTime.time, classAndTime.name));
+            }
         }
         items.add(new Header("SALUR 2"));
-        for (CT ct: Timetable.getClassesForWeekday(day, 2)) {
-            items.add(new ListItem(ct.time, ct.name));
+        for (ClassAndTime classAndTime : Timetable.getClassesForWeekday(day, 2)) {
+            if (!Timetable.rejectedMap.get(classAndTime.name)) {
+                items.add(new ListItem(classAndTime.time, classAndTime.name));
+            }
         }
 
         items.add(new Header("SALUR 3"));
-        for (CT ct: Timetable.getClassesForWeekday(day, 3)) {
-            items.add(new ListItem(ct.time, ct.name));
+        for (ClassAndTime classAndTime : Timetable.getClassesForWeekday(day, 3)) {
+            if (!Timetable.rejectedMap.get(classAndTime.name)) {
+                items.add(new ListItem(classAndTime.time, classAndTime.name));
+            }
         }
-
-
-
-        TwoTextArrayAdapter adapter = new TwoTextArrayAdapter(this, items);
-        lv.setAdapter(adapter);
-
-
+        adapter.notifyDataSetChanged();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,5 +102,14 @@ public class DayScheduleActivity extends ActionBarActivity {
         finish();
         overridePendingTransition(R.anim.anim_slide_in_right,
                 R.anim.anim_slide_out_right);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Timetable.needToRefreshRejectedClasses) {
+            Log.d(TAG, "Refreshing rejected classes");
+            setItems();
+        }
     }
 }

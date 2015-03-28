@@ -10,8 +10,9 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/mjolnirlogo"
-        android:layout_width="300dp"
-        android:layout_height="300dp" />
+        android:layout_height="@dimen/mjolnirlogo_diameter"
+        android:layout_width="@dimen/mjolnirlogo_diameter"
+        />
 
 
     

@@ -22,7 +22,7 @@ public class ListItem implements Item {
     public View getView(LayoutInflater inflater, View convertView) {
         View view;
         if (convertView == null) {
-            view = (View) inflater.inflate(R.layout.my_list_item, null);
+            view = (View) inflater.inflate(R.layout.time_and_class, null);
             // Do some initialization
         } else {
             view = convertView;

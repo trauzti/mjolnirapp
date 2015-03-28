@@ -3,15 +3,11 @@ package is.mjolnir.android;
 /**
  * Created by traustis on 3/28/15.
  */
-public class CT {
+public class ClassAndTime {
 
     public String time, name;
 
-    public CT(){
-
-    }
-
-    public CT(String time, String name) {
+    public ClassAndTime(String time, String name) {
         this.time = time;
         this.name = name;
     }

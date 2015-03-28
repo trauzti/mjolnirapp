@@ -2,5 +2,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="mjolnirbutton_diameter">65dp</dimen>
+    <dimen name="mjolnirbutton_diameter">45dp</dimen>
+    <dimen name="mjolnirbutton_margin">4dp</dimen>
+    <dimen name="mjolnirlogo_diameter">200dp</dimen>
+
 </resources>

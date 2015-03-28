@@ -2,6 +2,12 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- checkbox Solution for green on API 19 http://dluat.com/widget-not-tinted-on-lollipop/ -->
+
+        <item name="colorAccent">@color/mjolnirred</item>
+        <item name="colorControlNormal">@color/mjolnirred</item>
+
+
 
     <!-- Customize your theme here. -->
     </style>
@@ -9,7 +15,7 @@
     <style name="mjolnirbutton">
         <item name="android:background">@drawable/mjolnircircle</item>
         <item name="android:textColor">@color/mjolnirwhite</item>
-        <item name="android:layout_margin">4dp</item>
+        <item name="android:layout_margin">@dimen/mjolnirbutton_margin</item>
         <item name="android:textAllCaps">false</item>
     </style>
 

@@ -4,9 +4,10 @@
     tools:context="is.mjolnir.android.DayScheduleActivity">
 
     <item
+        android:icon="@drawable/ic_action_edit"
         android:id="@+id/action_customize"
         android:title="@string/action_customize"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
 </menu>

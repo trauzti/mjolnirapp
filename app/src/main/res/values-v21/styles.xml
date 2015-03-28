@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="android:colorPrimary">@color/mjolnirred</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <!-- <item name="android:colorPrimaryDark">@color/mjolnirred</item> -->
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="android:colorAccent">@color/mjolnirred</item>
+
+        <!-- checkbox -->
+        <item name="colorAccent">@color/mjolnirred</item>
+        <item name="android:textColorSecondary">@color/mjolnirred</item>
     </style>
 
 

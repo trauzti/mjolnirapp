@@ -3,7 +3,6 @@ package is.mjolnir.android;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
@@ -11,6 +10,7 @@ import android.widget.ListView;
 public class CustomizeClasses extends ActionBarActivity {
 
     private ListView lv;
+    private InteractiveArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,17 +22,23 @@ public class CustomizeClasses extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Velja sýndan tíma");
 
+        // TODO: Connect the checkbox to the model
+        adapter = new InteractiveArrayAdapter(this, Timetable.getAllClasses());
+        /*
+        for (MjolnirClass mjolnirClass : Timetable.getAllClasses()) {
+            mjolnirClass.rejected = Timetable.rejectedMap.get(mjolnirClass.name);
+            adapter.add(mjolnirClass);
+            // TODO: make sure that the checkbox is recycled correctly
+
+        }
+        */
+
+        lv.setAdapter(adapter);
 
 
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_customize_classes, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -41,15 +47,17 @@ public class CustomizeClasses extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         if (id == android.R.id.home) {
+            Timetable.saveRejectedClasses(this);
             onBackPressed();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Timetable.saveRejectedClasses(this);
     }
 }
