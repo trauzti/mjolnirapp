@@ -1,0 +1,15 @@
+<resources>
+    <!-- Facebook -->
+    <color name="com_facebook_blue">#3B5998</color>
+
+    <color name="mjolnirred">#FF0000</color>
+    <color name="mjolnirblack">#000000</color>
+    <color name="mjolnirwhite">#FFFFFF</color>
+
+    <color name="mjolnirdarkgray">#aaaaaa</color>
+    <color name="mjolnirgray">#d0d0d0</color>
+
+
+
+
+</resources>

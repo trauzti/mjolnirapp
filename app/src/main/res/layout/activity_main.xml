@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mjolnirblack"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/mjolnirlogo"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/mjolnirlogo"
+        android:layout_width="300dp"
+        android:layout_height="300dp" />
+
+
+    
+    <LinearLayout
+        android:id="@+id/weekdays"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/mjolnirlogo"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        
+        <Button
+            android:id="@+id/day1"
+            style="@style/mjolnirbutton"
+            android:layout_height="@dimen/mjolnirbutton_diameter"
+            android:layout_width="@dimen/mjolnirbutton_diameter"
+            android:text="mán."/>
+
+        <Button
+            android:id="@+id/day2"
+            style="@style/mjolnirbutton"
+            android:layout_height="@dimen/mjolnirbutton_diameter"
+            android:layout_width="@dimen/mjolnirbutton_diameter"
+            android:text="þri."/>
+
+        <Button
+            android:id="@+id/day3"
+            style="@style/mjolnirbutton"
+            android:layout_height="@dimen/mjolnirbutton_diameter"
+            android:layout_width="@dimen/mjolnirbutton_diameter"
+            android:text="mið."/>
+
+        <Button
+            android:id="@+id/day4"
+            style="@style/mjolnirbutton"
+            android:layout_height="@dimen/mjolnirbutton_diameter"
+            android:layout_width="@dimen/mjolnirbutton_diameter"
+            android:text="fim."/>
+
+        <Button
+            android:id="@+id/day5"
+            style="@style/mjolnirbutton"
+            android:layout_height="@dimen/mjolnirbutton_diameter"
+            android:layout_width="@dimen/mjolnirbutton_diameter"
+            android:text="fös."/>
+
+
+
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/weekends"
+        android:layout_below="@id/weekdays"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/day6"
+            style="@style/mjolnirbutton"
+            android:layout_height="@dimen/mjolnirbutton_diameter"
+            android:layout_width="@dimen/mjolnirbutton_diameter"
+            android:text="lau."/>
+
+        <Button
+            android:id="@+id/day7"
+            style="@style/mjolnirbutton"
+            android:layout_height="@dimen/mjolnirbutton_diameter"
+            android:layout_width="@dimen/mjolnirbutton_diameter"
+            android:text="sun."/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/today"
+        android:layout_below="@id/weekends"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/daytoday"
+            style="@style/mjolnirbutton"
+            android:layout_height="@dimen/mjolnirbutton_diameter"
+            android:layout_width="@dimen/mjolnirbutton_diameter"
+            android:text="í dag"/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

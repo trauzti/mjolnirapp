@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Mjölnir</string>
+
+    <string name="action_customize">Handvelja námskeið</string>
+    <string name="title_activity_day_schedule">DayScheduleActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_customize_classes">CustomizeClasses</string>
+
+</resources>
