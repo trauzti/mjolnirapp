@@ -1,4 +1,4 @@
-package is.mjolnir.android;
+package is.mjolnir.android.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -6,6 +6,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+
+import is.mjolnir.android.lists.InteractiveArrayAdapter;
+import is.mjolnir.android.R;
+import is.mjolnir.android.models.Timetable;
 
 
 public class CustomizeClasses extends ActionBarActivity {
@@ -63,6 +67,7 @@ public class CustomizeClasses extends ActionBarActivity {
             for (String rejectedKey : Timetable.rejectedMap.keySet()) {
                 Timetable.rejectedMap.put(rejectedKey, false);
             }
+            Timetable.needToRefreshRejectedClasses = true;
             adapter.notifyDataSetChanged();
             return true;
         }
@@ -71,6 +76,7 @@ public class CustomizeClasses extends ActionBarActivity {
             for (String rejectedKey : Timetable.rejectedMap.keySet()) {
                 Timetable.rejectedMap.put(rejectedKey, true);
             }
+            Timetable.needToRefreshRejectedClasses = true;
             adapter.notifyDataSetChanged();
             return true;
         }

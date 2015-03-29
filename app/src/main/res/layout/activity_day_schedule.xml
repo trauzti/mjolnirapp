@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mjolnirblack"
-    tools:context="is.mjolnir.android.DayScheduleActivity">
+    tools:context="is.mjolnir.android.activities.DayScheduleActivity">
 
     <ListView
         android:id="@+id/list"

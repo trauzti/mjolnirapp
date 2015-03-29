@@ -1,16 +1,23 @@
-package is.mjolnir.android;
+package is.mjolnir.android.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import is.mjolnir.android.R;
+import is.mjolnir.android.lists.Header;
+import is.mjolnir.android.lists.Item;
+import is.mjolnir.android.lists.ListItem;
+import is.mjolnir.android.lists.TwoTextArrayAdapter;
+import is.mjolnir.android.models.ClassAndTime;
+import is.mjolnir.android.models.Timetable;
 
 
 public class DayScheduleActivity extends ActionBarActivity {
@@ -110,7 +117,8 @@ public class DayScheduleActivity extends ActionBarActivity {
     public void onResume() {
         super.onResume();
         if (Timetable.needToRefreshRejectedClasses) {
-            Log.d(TAG, "Refreshing rejected classes");
+            Timetable.needToRefreshRejectedClasses = false;
+            //Log.d(TAG, "Refreshing rejected classes");
             setItems();
         }
     }

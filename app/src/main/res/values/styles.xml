@@ -13,8 +13,9 @@
     </style>
 
     <style name="mjolnirbutton">
-        <item name="android:background">@drawable/mjolnircircle</item>
-        <item name="android:textColor">@color/mjolnirwhite</item>
+        <item name="android:background">@drawable/mjolnirbuttonbackground</item>
+        <item name="android:textColor">@color/mjolnirgray</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_margin">@dimen/mjolnirbutton_margin</item>
         <item name="android:textAllCaps">false</item>
     </style>

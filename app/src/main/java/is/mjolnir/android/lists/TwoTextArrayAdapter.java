@@ -1,4 +1,4 @@
-package is.mjolnir.android;
+package is.mjolnir.android.lists;
 
 import android.content.Context;
 import android.view.LayoutInflater;

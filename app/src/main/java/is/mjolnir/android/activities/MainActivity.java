@@ -1,4 +1,4 @@
-package is.mjolnir.android;
+package is.mjolnir.android.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import com.crashlytics.android.Crashlytics;
 import java.util.Calendar;
 
 import io.fabric.sdk.android.Fabric;
+import is.mjolnir.android.R;
+import is.mjolnir.android.models.Timetable;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -28,7 +30,6 @@ public class MainActivity extends ActionBarActivity {
 
         int[] buttonIds = {R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6, R.id.day7};
         final int[] dayIds = {Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY};
-
         final String[] dayNames = {"mánudagur", "þriðjudagur", "miðvikudagur", "fimmtudagur", "föstudagur", "laugardagur", "sunnudagur"};
 
         for (int i = 0; i < buttonIds.length; i++) {

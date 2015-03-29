@@ -1,8 +1,10 @@
-package is.mjolnir.android;
+package is.mjolnir.android.lists;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+
+import is.mjolnir.android.R;
 
 public class ListItem implements Item {
     private final String         str1;

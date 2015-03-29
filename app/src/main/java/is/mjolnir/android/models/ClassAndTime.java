@@ -1,4 +1,4 @@
-package is.mjolnir.android;
+package is.mjolnir.android.models;
 
 /**
  * Created by traustis on 3/28/15.

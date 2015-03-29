@@ -1,4 +1,4 @@
-package is.mjolnir.android;
+package is.mjolnir.android.models;
 
 
 import android.content.Context;
@@ -215,10 +215,7 @@ public class Timetable {
                 keyValuesEditor.commit();
             }
         }.start();
-
-
     }
-
 
 }
 

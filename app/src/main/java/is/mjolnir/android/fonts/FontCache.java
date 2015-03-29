@@ -11,7 +11,6 @@ public class FontCache
 
     public static Typeface getOpenSansBold(Context context)
     {
-        //fonts/Open_Sans/OpenSans-Bold.ttf
         return getFont("fonts/Open_Sans/OpenSans-Bold.ttf", context);
     }
 
@@ -81,11 +80,11 @@ public class FontCache
         {
             if (!mFontCache.containsKey(paramString))
             {
-                Typeface localTypeface2 = Typeface.createFromAsset(context.getAssets(), paramString);
-                mFontCache.put(paramString, localTypeface2);
+                Typeface newTypeface = Typeface.createFromAsset(context.getAssets(), paramString);
+                mFontCache.put(paramString, newTypeface);
             }
-            Typeface localTypeface1 = (Typeface) mFontCache.get(paramString);
-            return localTypeface1;
+            Typeface typeface = mFontCache.get(paramString);
+            return typeface;
         }
     }
 }

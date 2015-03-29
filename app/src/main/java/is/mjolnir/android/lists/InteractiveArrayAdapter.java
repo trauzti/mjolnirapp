@@ -1,4 +1,4 @@
-package is.mjolnir.android;
+package is.mjolnir.android.lists;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.List;
+
+import is.mjolnir.android.R;
+import is.mjolnir.android.models.MjolnirClass;
 
 public class InteractiveArrayAdapter extends ArrayAdapter<MjolnirClass> {
 
