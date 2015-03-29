@@ -1,18 +1,12 @@
 package is.mjolnir.android;
 
-//
-//  TimetableDataModel.swift
-//  Mjölnir
-//
-//  Created by Stefán Geir Sigfússon on 13.2.2015.
-//  Copyright (c) 2015 Stefán Geir. All rights reserved.
-//
-
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,13 +47,17 @@ public class Timetable {
     public static MjolnirClass yoga201 = new MjolnirClass("Mjölnisyoga 201");
     public static MjolnirClass godaafl = new MjolnirClass("Goðaafl");
 
+    private static List<MjolnirClass> allClasses = Arrays.asList(nogistelpur, nogi201, nogi301, mma101, mma101unglingar, mma201, mma201unglingar, mmact, mjolnir101, bjj301, bjj201,
+    bjjct, bjjstelpur, openmat, vikingathrek, extraIntenseVikingathrek, vikingathrek101, vikingathrekunglingar, box101, box201, box301,
+    sparr, kickbox101, kickbox201, kickbox301, born101, born201, yoga101, yoga201, godaafl);
+
 
     public static List<MjolnirClass> getAllClasses() {
-        return Arrays.asList(nogistelpur, nogi201, nogi301, mma101, mma101unglingar, mma201, mma201unglingar, mmact, mjolnir101, bjj301, bjj201,
-                bjjct, bjjstelpur, openmat, vikingathrek, extraIntenseVikingathrek, vikingathrek101, vikingathrekunglingar, box101, box201, box301,
-                sparr, kickbox101, kickbox201, kickbox301, born101, born201, yoga101, yoga201, godaafl);
+        return allClasses;
     }
 
+
+    private static HashMap<Integer, List<ClassAndTime>> memoizedClasses = new HashMap<>();
 
     /*
     public static List<MjolnirClass> getClassesForRoom(int roomNumber) {
@@ -68,29 +66,37 @@ public class Timetable {
     */
 
     public static List<ClassAndTime> getClassesForWeekday(final int theWeekday, final int theRoom) {
-        if (theWeekday < 1 || theWeekday > 7) {
-            return null;
+
+        List<ClassAndTime> classes = new ArrayList<ClassAndTime>(); // prevent: Attempt to invoke interface method 'java.util.Iterator java.util.List.iterator()' on a null object reference
+
+        if (theWeekday < Calendar.SUNDAY || theWeekday > Calendar.SATURDAY) {
+            return classes;
         }
-        List<ClassAndTime> classes = null;
+
+        int lookupNumber = theWeekday * 10 + theRoom;
+        if (memoizedClasses.containsKey(lookupNumber)) {
+            //Log.d("Timetable", "Using memoization!!!");
+            return memoizedClasses.get(lookupNumber);
+        }
 
         switch(theRoom) {
             case 1:
                 switch(theWeekday) {
-                    case 1:
-                    case 3:
+                    case Calendar.MONDAY:
+                    case Calendar.WEDNESDAY:
                         classes = Arrays.asList(new ClassAndTime("12:10",nogi201.name), new ClassAndTime("16:30", born201.name), new ClassAndTime("17:15", mma201unglingar.name), new ClassAndTime("18:00", bjj301.name), new ClassAndTime("19:00", bjj201.name), new ClassAndTime("20:00", kickbox201.name));
                         break;
-                    case 2:
-                    case 4:
-                        classes = Arrays.asList(new ClassAndTime("08:00",bjj201.name), new ClassAndTime("12:10",bjj201.name), new ClassAndTime("17:00",nogi301.name), new ClassAndTime("18:00",mmact.name), new ClassAndTime("20:00",mjolnir101.name));
+                    case Calendar.TUESDAY:
+                    case Calendar.THURSDAY:
+                        classes = Arrays.asList(new ClassAndTime("08:00",bjj201.name), new ClassAndTime("12:10",bjj201.name), new ClassAndTime("17:00",nogi301.name), new ClassAndTime("18:00",mmact.name), new ClassAndTime("19:00",mmact.name), new ClassAndTime("20:00",mjolnir101.name));
                         break;
-                    case 5:
+                    case Calendar.FRIDAY:
                         classes = Arrays.asList(new ClassAndTime("12:10", nogi201.name), new ClassAndTime("16:30",born201.name), new ClassAndTime("17:15",mma201unglingar.name), new ClassAndTime("18:00",bjj201.name));
                         break;
-                    case 6:
+                    case Calendar.SATURDAY:
                         classes = Arrays.asList(new ClassAndTime("11:10",bjjct.name), new ClassAndTime("12:10",bjj201.name), new ClassAndTime("13:00",openmat.name));
                         break;
-                    case 7:
+                    case Calendar.SUNDAY:
                         classes = Arrays.asList(new ClassAndTime("12:10",openmat.name), new ClassAndTime("13:00", openmat.name));
                         break;
                     default:
@@ -100,24 +106,25 @@ public class Timetable {
                 break;
             case 2:
                 switch(theWeekday) {
-                    case 1:
-                   //     classes = Arrays.asList(new ClassAndTime("06:40",vikingathrek.name), new ClassAndTime("12:10",vikingathrek.name), new ClassAndTime("16:30",vikingathrek.name), new ClassAndTime("17:15",vikingathrek.name), new ClassAndTime("18:00",box301.name), new ClassAndTime("19:00",kickbox301.name), new ClassAndTime("20:00",vikingathrek.name));
-                   //     break;
-                    case 3:
+                    case Calendar.MONDAY:
+                        classes = Arrays.asList(new ClassAndTime("06:40",vikingathrek.name), new ClassAndTime("12:10",vikingathrek.name), new ClassAndTime("16:30",vikingathrek.name), new ClassAndTime("17:15",vikingathrek.name), new ClassAndTime("18:00",box301.name), new ClassAndTime("19:00",kickbox301.name), new ClassAndTime("20:00",vikingathrek.name));
+                        break;
+                    case Calendar.WEDNESDAY:
                         classes = Arrays.asList(new ClassAndTime("06:40", vikingathrek.name), new ClassAndTime("12:10",vikingathrek.name), new ClassAndTime("16:30",vikingathrek.name), new ClassAndTime("17:15",vikingathrek.name), new ClassAndTime("18:00",box301.name), new ClassAndTime("19:00",mma201.name), new ClassAndTime("20:00",vikingathrek.name));
                         break;
-                    case 2:
-                    case 4:
+                    case Calendar.TUESDAY:
+                    case Calendar.THURSDAY:
                         classes = Arrays.asList(new ClassAndTime("08:00",vikingathrek.name), new ClassAndTime("12:10",vikingathrek.name), new ClassAndTime("16:30",born101.name), new ClassAndTime("17:15",vikingathrek.name), new ClassAndTime("18:00",vikingathrek.name), new ClassAndTime("19:00",vikingathrek101.name), new ClassAndTime("20:00",kickbox101.name));
                         break;
-                    case 5:
+                    case Calendar.FRIDAY:
                         classes = Arrays.asList(new ClassAndTime("06:40",vikingathrek.name), new ClassAndTime("12:10",vikingathrek.name), new ClassAndTime("16:30",vikingathrek.name), new ClassAndTime("17:15",vikingathrek.name), new ClassAndTime("18:00",box201.name));
                         break;
-                    case 6:
+                    case Calendar.SATURDAY:
                         classes = Arrays.asList(new ClassAndTime("11:10",vikingathrek.name), new ClassAndTime("12:10",vikingathrek.name), new ClassAndTime("13:00",vikingathrekunglingar.name));
                         break;
-                    case 7:
-                        classes = Arrays.asList(new ClassAndTime("10:30",extraIntenseVikingathrek.name), new ClassAndTime("12:10",vikingathrek.name), new ClassAndTime("13:00",sparr.name));
+                    case Calendar.SUNDAY:
+                        //new ClassAndTime("10:30",extraIntenseVikingathrek.name),
+                        classes = Arrays.asList(new ClassAndTime("12:10",vikingathrek.name), new ClassAndTime("13:00",sparr.name));
                         break;
                     default:
                         classes = Arrays.asList(new ClassAndTime("error","error"));
@@ -127,25 +134,25 @@ public class Timetable {
                 break;
             case 3:
                 switch (theWeekday) {
-                    case 1:
+                    case Calendar.MONDAY:
                         classes = Arrays.asList(new ClassAndTime("12:10",yoga201.name), new ClassAndTime("17:15",godaafl.name), new ClassAndTime("18:00",mma101.name), new ClassAndTime("19:00",box201.name), new ClassAndTime("20:00",box101.name));
                         break;
-                    case 2:
+                    case Calendar.TUESDAY:
                         classes = Arrays.asList(new ClassAndTime("12:10",yoga101.name), new ClassAndTime("16:30",godaafl.name), new ClassAndTime("17:15",mma201unglingar.name), new ClassAndTime("18:00",mma101unglingar.name), new ClassAndTime("19:00",bjjstelpur.name), new ClassAndTime("20:00",nogi201.name));
                         break;
-                    case 3:
+                    case Calendar.WEDNESDAY:
                         classes = Arrays.asList(new ClassAndTime("12:10", mjolnir101.name), new ClassAndTime("17:15",godaafl.name), new ClassAndTime("18:00",kickbox301.name), new ClassAndTime("19:00",box201.name), new ClassAndTime("20:00",box101.name));
                         break;
-                    case 4:
+                    case Calendar.THURSDAY:
                         classes = Arrays.asList(new ClassAndTime("12:10",yoga101.name), new ClassAndTime("16:30",godaafl.name), new ClassAndTime("17:15",mma201unglingar.name), new ClassAndTime("18:00",mma101unglingar.name), new ClassAndTime("19:00",nogistelpur.name), new ClassAndTime("20:00",nogi201.name));
                         break;
-                    case 5:
+                    case Calendar.FRIDAY:
                         classes = Arrays.asList(new ClassAndTime("12:10",mjolnir101.name), new ClassAndTime("17:15",godaafl.name), new ClassAndTime("18:00",kickbox201.name));
                         break;
-                    case 6:
+                    case Calendar.SATURDAY:
                         classes = Arrays.asList(new ClassAndTime("11:10",yoga201.name), new ClassAndTime("13:10",yoga101.name));
                         break;
-                    case 7:
+                    case Calendar.SUNDAY:
                         classes = Arrays.asList(new ClassAndTime("13:10",yoga101.name));
                         break;
                     default:
@@ -176,6 +183,7 @@ public class Timetable {
         }
 
     }*/
+        memoizedClasses.put(lookupNumber, classes);
         return classes;
     }
 
@@ -192,12 +200,7 @@ public class Timetable {
         }
     }
 
-    // NOTE! Not saved to shared preferences
-    public static void rejectClass(String name) {
-        rejectedMap.put(name, true);
-    }
 
-    // TODO: Save this from CustomizeClasses
     public static void saveRejectedClasses(final Context context) {
 
         new Thread() {

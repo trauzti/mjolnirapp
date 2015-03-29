@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
@@ -28,16 +27,22 @@ public class MainActivity extends ActionBarActivity {
         Timetable.loadRejectedClasses(this);
 
         int[] buttonIds = {R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6, R.id.day7};
+        final int[] dayIds = {Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY};
 
-        for (int i = 1; i <= buttonIds.length; i++) {
-            final int buttonId = buttonIds[i-1];
-            final int day = i;
+        final String[] dayNames = {"mánudagur", "þriðjudagur", "miðvikudagur", "fimmtudagur", "föstudagur", "laugardagur", "sunnudagur"};
+
+        for (int i = 0; i < buttonIds.length; i++) {
+            final int buttonId = buttonIds[i];
+            final int day = dayIds[i];
+            final String dayName = dayNames[i];
+
             findViewById(buttonId).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(MainActivity.this, String.format("Day #%d clicked", buttonId), Toast.LENGTH_LONG);
                     Intent intent = new Intent(MainActivity.this, DayScheduleActivity.class);
                     intent.putExtra("day", day);
+                    intent.putExtra("dayName", dayName);
                     startActivity(intent);
                     overridePendingTransition(R.anim.anim_slide_in_left,
                             R.anim.anim_slide_out_left);
@@ -55,8 +60,15 @@ public class MainActivity extends ActionBarActivity {
                 Intent intent = new Intent(MainActivity.this, DayScheduleActivity.class);
 
                 Calendar c = Calendar.getInstance();
-                int today = c.get(Calendar.DAY_OF_WEEK) - Calendar.MONDAY + 1;
-                Log.d(TAG, "today= " + today);
+                int today = c.get(Calendar.DAY_OF_WEEK);
+                int index = 0;
+                for (; index<dayIds.length; index++) {
+                    if (today == dayIds[index]) {
+                        break;
+                    }
+                }
+                intent.putExtra("dayName", dayNames[index]);
+
                 intent.putExtra("day", today);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_left,

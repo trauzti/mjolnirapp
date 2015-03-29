@@ -19,6 +19,7 @@ public class DayScheduleActivity extends ActionBarActivity {
     private List<Item> items = new ArrayList<Item>();
     private TwoTextArrayAdapter adapter;
     private int day = 0;
+    private String dayName = "";
 
 
     private ListView lv;
@@ -29,12 +30,13 @@ public class DayScheduleActivity extends ActionBarActivity {
         lv = (ListView) findViewById(R.id.list);
         Intent i = getIntent();
         day = i.getIntExtra("day", 0);
-        Log.d(TAG, "day=" + day);
+        dayName = i.getStringExtra("dayName");
+
+        //Log.d(TAG, "day=" + day);
         //Toast.makeText(this, "day=" + day, Toast.LENGTH_LONG).show();
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        String days[] = {"","mánudagur", "þriðjudagur", "miðvikudagur", "fimmtudagur", "föstudagur", "laugardagur", "sunnudagur"};
-        actionBar.setTitle(days[day]);
+        actionBar.setTitle(dayName);
 
 
 
