@@ -7,7 +7,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Calendar;
+
+import io.fabric.sdk.android.Fabric;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -17,6 +21,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -55,7 +60,8 @@ public class MainActivity extends ActionBarActivity {
                 intent.putExtra("day", today);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_left,
-                        R.anim.anim_slide_out_left);            }
+                        R.anim.anim_slide_out_left);
+            }
         });
 
     }

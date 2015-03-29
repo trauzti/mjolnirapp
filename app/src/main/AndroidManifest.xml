@@ -25,6 +25,10 @@
             android:name=".CustomizeClasses"
             android:label="@string/title_activity_customize_classes" >
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="a07eeec33dda94a61c876eefc7bd05ceb5265922" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
