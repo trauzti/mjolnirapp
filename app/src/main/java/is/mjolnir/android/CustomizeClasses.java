@@ -3,6 +3,7 @@ package is.mjolnir.android;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
@@ -37,7 +38,12 @@ public class CustomizeClasses extends ActionBarActivity {
 
 
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_customize_classes, menu);
+        return true;
+    }
 
 
     @Override
@@ -50,6 +56,22 @@ public class CustomizeClasses extends ActionBarActivity {
         if (id == android.R.id.home) {
             Timetable.saveRejectedClasses(this);
             onBackPressed();
+            return true;
+        }
+
+        if (id == R.id.action_select_all) {
+            for (String rejectedKey : Timetable.rejectedMap.keySet()) {
+                Timetable.rejectedMap.put(rejectedKey, false);
+            }
+            adapter.notifyDataSetChanged();
+            return true;
+        }
+
+        if (id == R.id.action_select_none) {
+            for (String rejectedKey : Timetable.rejectedMap.keySet()) {
+                Timetable.rejectedMap.put(rejectedKey, true);
+            }
+            adapter.notifyDataSetChanged();
             return true;
         }
         return super.onOptionsItemSelected(item);

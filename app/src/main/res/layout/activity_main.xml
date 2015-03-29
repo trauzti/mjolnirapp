@@ -14,8 +14,6 @@
         android:layout_width="@dimen/mjolnirlogo_diameter"
         />
 
-
-    
     <LinearLayout
         android:id="@+id/weekdays"
         android:layout_centerHorizontal="true"
@@ -25,40 +23,40 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         
-        <Button
+        <is.mjolnir.android.fonts.OpenSansBoldButton
             android:id="@+id/day1"
             style="@style/mjolnirbutton"
             android:layout_height="@dimen/mjolnirbutton_diameter"
             android:layout_width="@dimen/mjolnirbutton_diameter"
-            android:text="mán."/>
+            android:text="MÁN"/>
 
-        <Button
+        <is.mjolnir.android.fonts.OpenSansBoldButton
             android:id="@+id/day2"
             style="@style/mjolnirbutton"
             android:layout_height="@dimen/mjolnirbutton_diameter"
             android:layout_width="@dimen/mjolnirbutton_diameter"
-            android:text="þri."/>
+            android:text="ÞRI"/>
 
-        <Button
+        <is.mjolnir.android.fonts.OpenSansBoldButton
             android:id="@+id/day3"
             style="@style/mjolnirbutton"
             android:layout_height="@dimen/mjolnirbutton_diameter"
             android:layout_width="@dimen/mjolnirbutton_diameter"
-            android:text="mið."/>
+            android:text="MIÐ"/>
 
-        <Button
+        <is.mjolnir.android.fonts.OpenSansBoldButton
             android:id="@+id/day4"
             style="@style/mjolnirbutton"
             android:layout_height="@dimen/mjolnirbutton_diameter"
             android:layout_width="@dimen/mjolnirbutton_diameter"
-            android:text="fim."/>
+            android:text="FIM"/>
 
-        <Button
+        <is.mjolnir.android.fonts.OpenSansBoldButton
             android:id="@+id/day5"
             style="@style/mjolnirbutton"
             android:layout_height="@dimen/mjolnirbutton_diameter"
             android:layout_width="@dimen/mjolnirbutton_diameter"
-            android:text="fös."/>
+            android:text="FÖS"/>
 
 
 
@@ -74,19 +72,19 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <is.mjolnir.android.fonts.OpenSansBoldButton
             android:id="@+id/day6"
             style="@style/mjolnirbutton"
             android:layout_height="@dimen/mjolnirbutton_diameter"
             android:layout_width="@dimen/mjolnirbutton_diameter"
-            android:text="lau."/>
+            android:text="LAU"/>
 
-        <Button
+        <is.mjolnir.android.fonts.OpenSansBoldButton
             android:id="@+id/day7"
             style="@style/mjolnirbutton"
             android:layout_height="@dimen/mjolnirbutton_diameter"
             android:layout_width="@dimen/mjolnirbutton_diameter"
-            android:text="sun."/>
+            android:text="SUN"/>
 
 
     </LinearLayout>
@@ -100,12 +98,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <is.mjolnir.android.fonts.OpenSansBoldButton
             android:id="@+id/daytoday"
             style="@style/mjolnirbutton"
             android:layout_height="@dimen/mjolnirbutton_diameter"
             android:layout_width="@dimen/mjolnirbutton_diameter"
-            android:text="í dag"/>
+            android:text="Í DAG"/>
 
 
     </LinearLayout>

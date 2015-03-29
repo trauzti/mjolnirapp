@@ -2,6 +2,9 @@
     <string name="app_name">Mjölnir</string>
 
     <string name="action_customize">Handvelja námskeið</string>
+    <string name="action_select_all">Velja allt</string>
+    <string name="action_select_none">Velja ekkert</string>
+
     <string name="title_activity_day_schedule">DayScheduleActivity</string>
 
     <string name="hello_world">Hello world!</string>

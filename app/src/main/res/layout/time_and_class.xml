@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-    <TextView
+    <is.mjolnir.android.fonts.OpenSansLightTextView
         android:id="@+id/list_content1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -17,9 +17,9 @@
         android:text="sample"
         android:textColor="@color/mjolnirgray"
         android:textSize="17dip"
-        android:textStyle="bold" />
+        />
 
-    <TextView
+    <is.mjolnir.android.fonts.OpenSansLightTextView
         android:id="@+id/list_content2"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

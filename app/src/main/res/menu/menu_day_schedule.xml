@@ -4,7 +4,7 @@
     tools:context="is.mjolnir.android.DayScheduleActivity">
 
     <item
-        android:icon="@drawable/ic_action_edit"
+        android:icon="@drawable/ic_action_view_as_list"
         android:id="@+id/action_customize"
         android:title="@string/action_customize"
         android:orderInCategory="100"

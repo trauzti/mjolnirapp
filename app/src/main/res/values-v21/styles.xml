@@ -11,6 +11,10 @@
         <!-- checkbox -->
         <item name="colorAccent">@color/mjolnirred</item>
         <item name="android:textColorSecondary">@color/mjolnirred</item>
+
+        <item name="android:textColor">@color/mjolnirwhite</item>
+        <item name="android:background">@color/mjolnirblack</item>
+
     </style>
 
 

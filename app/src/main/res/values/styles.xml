@@ -6,8 +6,8 @@
 
         <item name="colorAccent">@color/mjolnirred</item>
         <item name="colorControlNormal">@color/mjolnirred</item>
-
-
+        <item name="android:textColor">@color/mjolnirwhite</item>
+        <item name="android:background">@color/mjolnirblack</item>
 
     <!-- Customize your theme here. -->
     </style>

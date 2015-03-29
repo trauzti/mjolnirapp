@@ -123,8 +123,7 @@ public class Timetable {
                         classes = Arrays.asList(new ClassAndTime("11:10",vikingathrek.name), new ClassAndTime("12:10",vikingathrek.name), new ClassAndTime("13:00",vikingathrekunglingar.name));
                         break;
                     case Calendar.SUNDAY:
-                        //new ClassAndTime("10:30",extraIntenseVikingathrek.name),
-                        classes = Arrays.asList(new ClassAndTime("12:10",vikingathrek.name), new ClassAndTime("13:00",sparr.name));
+                        classes = Arrays.asList(new ClassAndTime("10:30",extraIntenseVikingathrek.name), new ClassAndTime("12:10",vikingathrek.name), new ClassAndTime("13:00",sparr.name));
                         break;
                     default:
                         classes = Arrays.asList(new ClassAndTime("error","error"));
