@@ -9,4 +9,8 @@
     <color name="mjolnirdarkgray">#aaaaaa</color>
     <color name="mjolnirgray">#ccc</color>
 
+    <color name="overlay_selector_pressed">#40000000</color>
+    <color name="window_background">#ff202020</color>
+    <color name="list_divider">#ff555555</color>
+
 </resources>

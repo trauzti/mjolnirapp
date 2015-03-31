@@ -80,4 +80,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
+    public void openInstagramFeed(View view) {
+        //startActivity(new Intent(this, InstagramFeed.class));
+        startActivity(new Intent(this, SampleGridViewActivity.class));
+
+    }
+
+
 }
