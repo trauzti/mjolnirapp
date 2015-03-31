@@ -10,15 +10,15 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import is.mjolnir.android.R;
+import is.mjolnir.android.activities.InstaGridView;
 import is.mjolnir.android.activities.ImageDetailActivity;
-import is.mjolnir.android.activities.SampleGridViewActivity;
 
-public final class PicassoSampleAdapter extends BaseAdapter {
+public final class PicassoAdapter extends BaseAdapter {
 
     private static final int NOTIFICATION_ID = 666;
 
     public enum Sample {
-        GRID_VIEW("Image Grid View", SampleGridViewActivity.class),
+        GRID_VIEW("Image Grid View", InstaGridView.class),
         SHOW_NOTIFICATION("Sample Notification", null);
 
         private final Class<? extends Activity> activityClass;
@@ -39,7 +39,7 @@ public final class PicassoSampleAdapter extends BaseAdapter {
 
     private final LayoutInflater inflater;
 
-    public PicassoSampleAdapter(Context context) {
+    public PicassoAdapter(Context context) {
         inflater = LayoutInflater.from(context);
     }
 

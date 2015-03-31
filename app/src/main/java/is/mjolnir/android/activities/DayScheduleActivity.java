@@ -108,9 +108,11 @@ public class DayScheduleActivity extends ActionBarActivity {
     @Override
     public void onBackPressed()
     {
-        finish();
+        super.onBackPressed();
         overridePendingTransition(R.anim.anim_slide_in_right,
                 R.anim.anim_slide_out_right);
+        //        finish();
+
     }
 
     @Override

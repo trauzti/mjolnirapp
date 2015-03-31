@@ -3,23 +3,28 @@ package is.mjolnir.android.activities;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import is.mjolnir.android.lists.InteractiveArrayAdapter;
 import is.mjolnir.android.R;
+import is.mjolnir.android.lists.InteractiveArrayAdapter;
 import is.mjolnir.android.models.Timetable;
 
 
 public class CustomizeClasses extends ActionBarActivity {
 
+    public static final String TAG = CustomizeClasses.class.getName();
     private ListView lv;
     private InteractiveArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate savedInstanceState ==" + savedInstanceState);
+        Timetable.loadRejectedClasses(this);
+
         setContentView(R.layout.activity_customize_classes);
         lv = (ListView) findViewById(R.id.list);
 
@@ -27,16 +32,8 @@ public class CustomizeClasses extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Velja sýndan tíma");
 
-        // TODO: Connect the checkbox to the model
         adapter = new InteractiveArrayAdapter(this, Timetable.getAllClasses());
-        /*
-        for (MjolnirClass mjolnirClass : Timetable.getAllClasses()) {
-            mjolnirClass.rejected = Timetable.rejectedMap.get(mjolnirClass.name);
-            adapter.add(mjolnirClass);
-            // TODO: make sure that the checkbox is recycled correctly
 
-        }
-        */
 
         lv.setAdapter(adapter);
 
@@ -86,6 +83,13 @@ public class CustomizeClasses extends ActionBarActivity {
     @Override
     public void onPause() {
         super.onPause();
+        Log.d(TAG, "onPause");
         Timetable.saveRejectedClasses(this);
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart");
     }
 }

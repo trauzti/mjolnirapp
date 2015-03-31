@@ -12,35 +12,33 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleInstance" >
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.DayScheduleActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".activities.CustomizeClasses"
+            android:parentActivityName=".activities.DayScheduleActivity"
             android:label="@string/app_name" >
         </activity>
 
         <activity
-            android:name=".activities.InstagramFeed"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name=".activities.SampleGridViewActivity"
+            android:name=".activities.InstaGridView"
+            android:parentActivityName=".activities.MainActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".activities.ImageDetailActivity"
+            android:parentActivityName=".activities.InstaGridView"
             android:label="@string/app_name" >
         </activity>
-
 
         <meta-data
             android:name="io.fabric.ApiKey"
