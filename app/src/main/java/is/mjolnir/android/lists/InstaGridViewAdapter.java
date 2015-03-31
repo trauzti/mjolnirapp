@@ -27,11 +27,11 @@ import retrofit.converter.GsonConverter;
 
 import static android.widget.ImageView.ScaleType.CENTER_CROP;
 
-public final class SampleGridViewAdapter extends BaseAdapter {
+public final class InstaGridViewAdapter extends BaseAdapter {
     private final Context mContext;
-    //private final List<String> urls = InstagramCache.instagramURLsStandardRes;
     private final List<String> urls = InstagramCache.instagramURLsLowRes;
 
+    public static final int STATUS_TOO_MANY_REQUESTS = 429;
 
     private boolean mLoadingMore = true;
     private InstagramApiService instagramApiService;
@@ -39,7 +39,7 @@ public final class SampleGridViewAdapter extends BaseAdapter {
     private String next_max_tag_id = null;
     private Callback<InstagramResponse> instagramCallback;
 
-    public SampleGridViewAdapter(Context context) {
+    public InstaGridViewAdapter(Context context) {
         mContext = context;
         RestAdapter.LogLevel logLevel = RestAdapter.LogLevel.NONE;
 
@@ -88,7 +88,16 @@ public final class SampleGridViewAdapter extends BaseAdapter {
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(mContext, "Villa kom upp", Toast.LENGTH_SHORT).show();
+                if (error != null) {
+                    Response reseponse = error.getResponse();
+                    if (reseponse != null && reseponse.getStatus() == STATUS_TOO_MANY_REQUESTS) {
+                        Toast.makeText(mContext, "Kvótinn er búinn. Bíddu í <60 mín.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(mContext, "Villa kom upp", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(mContext, "Villa kom upp", Toast.LENGTH_SHORT).show();
+                }
             }
         };
 
@@ -113,8 +122,8 @@ public final class SampleGridViewAdapter extends BaseAdapter {
         // Trigger the download of the URL asynchronously into the image view.
         Picasso.with(mContext) //
                 .load(url) //
-                .placeholder(R.drawable.placeholder) //
-                .error(R.drawable.error) //
+                //.placeholder(R.drawable.placeholder) //
+                .error(R.drawable.mjolnirlogo) //
                 .fit() //
                 .tag(mContext) //
                 .into(view);

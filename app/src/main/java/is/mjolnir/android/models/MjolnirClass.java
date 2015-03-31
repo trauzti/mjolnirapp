@@ -7,8 +7,6 @@ public class MjolnirClass {
     
     public String name;
 
-    //public boolean rejected = false;
-
     public String getName() {
         return name;
     }
@@ -19,13 +17,11 @@ public class MjolnirClass {
 
     public boolean isRejected() {
         return Timetable.rejectedMap.get(name);
-        //return rejected;
     }
 
     public void setRejected(boolean rejected) {
         Timetable.needToRefreshRejectedClasses = true;
         Timetable.rejectedMap.put(name, rejected);
-        //this.rejected = rejected;
     }
 
     public MjolnirClass(String name) {

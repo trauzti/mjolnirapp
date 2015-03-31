@@ -23,8 +23,8 @@ android {
         applicationId "is.mjolnir.android"
         minSdkVersion 10
         targetSdkVersion 21
-        versionCode 6
-        versionName "1.5"
+        versionCode 7
+        versionName "1.6"
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
                 output.outputFile = new File(output.outputFile.parent, "mjolnir-" + defaultConfig.versionName + ".apk")
@@ -32,7 +32,17 @@ android {
         }
     }
     buildTypes {
+        def BOOLEAN = "boolean"
+        def TRUE = "true"
+        def FALSE = "false"
+        def REPORT_TO_CRASHLYTICS = "REPORT_TO_CRASHLYTICS"
+
+        debug {
+            buildConfigField BOOLEAN, REPORT_TO_CRASHLYTICS, FALSE
+            minifyEnabled false
+        }
         release {
+            buildConfigField BOOLEAN, REPORT_TO_CRASHLYTICS, TRUE
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             proguardFile 'proguard-project.txt'

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
@@ -11,6 +12,7 @@ import com.crashlytics.android.Crashlytics;
 import java.util.Calendar;
 
 import io.fabric.sdk.android.Fabric;
+import is.mjolnir.android.BuildConfig;
 import is.mjolnir.android.R;
 import is.mjolnir.android.models.Timetable;
 
@@ -19,10 +21,20 @@ public class MainActivity extends ActionBarActivity {
 
     public final String TAG = MainActivity.class.getName();
 
+    /*
+      http://www.rainbowbreeze.it/navigationbar-in-style-iphone-uitabbarcontroller-per-android/
+
+      https://api.instagram.com/v1/tags/mjolnirmma/media/recent?client_id=ebcc90c8e531481f99e39fbccfe6b9e1
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+        Log.d(TAG, "onCreate savedInstanceState ==" + savedInstanceState);
+
+        if (BuildConfig.REPORT_TO_CRASHLYTICS) {
+            Fabric.with(this, new Crashlytics());
+        }
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -82,7 +94,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void openInstagramFeed(View view) {
         //startActivity(new Intent(this, InstagramFeed.class));
-        startActivity(new Intent(this, SampleGridViewActivity.class));
+        startActivity(new Intent(this, InstaGridView.class));
 
     }
 

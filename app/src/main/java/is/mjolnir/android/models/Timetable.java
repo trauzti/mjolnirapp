@@ -186,9 +186,12 @@ public class Timetable {
         return classes;
     }
 
-    public static Map<String, Boolean> rejectedMap = new HashMap<String, Boolean>();
+    public static Map<String, Boolean> rejectedMap;
 
     public static void loadRejectedClasses(Context context) {
+        if (rejectedMap == null) {
+            rejectedMap = new HashMap<String, Boolean>();
+        }
 
         SharedPreferences keyValues = context.getSharedPreferences("mjolnir", Context.MODE_PRIVATE);
 

@@ -11,12 +11,7 @@ import is.mjolnir.android.api.InstagramApiService;
 import retrofit.RestAdapter;
 
 public class InstagramFeed extends ActionBarActivity {
-    /*
 
-        http://www.rainbowbreeze.it/navigationbar-in-style-iphone-uitabbarcontroller-per-android/
-
-         https://api.instagram.com/v1/tags/mjolnirmma/media/recent?client_id=ebcc90c8e531481f99e39fbccfe6b9e1
-     */
 
     private InstagramApiService instagramApiService;
     private RestAdapter restAdapter;

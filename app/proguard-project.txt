@@ -1,4 +1,8 @@
 
+-keepattributes SourceFile,LineNumberTable
+-printmapping mapping.txt
+
+
 -assumenosideeffects class android.util.Log {
     public static boolean isLoggable(java.lang.String, int);
     public static int v(...);
@@ -9,9 +13,32 @@
 }
 
 -libraryjars libs
+-keep class is.mjolnir.android.** { *; }
 -keep class com.crashlytics.** { *; }
 -keep class android.support.v4.app.** { *; }
 -keep interface android.support.v4.app.** { *; }
 
--keepattributes SourceFile,LineNumberTable
--printmapping mapping.txt
+
+# Keep Retrofit
+-keep class retrofit.** { *; }
+-keepclasseswithmembers class * {
+    @retrofit.** *;
+}
+-keepclassmembers class * {
+    @retrofit.** *;
+}
+
+# Keep Picasso
+-keep class com.squareup.picasso.** { *; }
+-keepclasseswithmembers class * {
+    @com.squareup.picasso.** *;
+}
+-keepclassmembers class * {
+    @com.squareup.picasso.** *;
+}
+
+-dontwarn com.squareup.picasso.**
+-dontwarn com.squareup.okhttp.**
+-dontwarn retrofit.**
+-keepattributes Signature
+-keepattributes Exceptions
