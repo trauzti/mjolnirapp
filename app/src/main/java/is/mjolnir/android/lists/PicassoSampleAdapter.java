@@ -10,13 +10,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import is.mjolnir.android.R;
+import is.mjolnir.android.activities.ImageDetailActivity;
 import is.mjolnir.android.activities.SampleGridViewActivity;
 
 public final class PicassoSampleAdapter extends BaseAdapter {
 
     private static final int NOTIFICATION_ID = 666;
 
-    enum Sample {
+    public enum Sample {
         GRID_VIEW("Image Grid View", SampleGridViewActivity.class),
         SHOW_NOTIFICATION("Sample Notification", null);
 
@@ -28,8 +29,10 @@ public final class PicassoSampleAdapter extends BaseAdapter {
             this.name = name;
         }
 
-        public void launch(Activity activity) {
-            activity.startActivity(new Intent(activity, activityClass));
+        public void launch(Activity activity, int position) {
+            Intent intent = new Intent(activity, ImageDetailActivity.class);
+            intent.putExtra("position", position);
+            activity.startActivity(intent);
             activity.finish();
         }
     }

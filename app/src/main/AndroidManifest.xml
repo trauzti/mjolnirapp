@@ -28,20 +28,23 @@
             android:label="@string/app_name" >
         </activity>
 
+        <activity
+            android:name=".activities.InstagramFeed"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".activities.SampleGridViewActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".activities.ImageDetailActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a07eeec33dda94a61c876eefc7bd05ceb5265922" />
-
-        <activity
-            android:label="@string/app_name"
-            android:name=".activities.InstagramFeed" >
-        </activity>
-
-        <activity
-            android:label="@string/app_name"
-            android:name=".activities.SampleGridViewActivity">
-        </activity>
-
     </application>
 
 </manifest>

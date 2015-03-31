@@ -1,0 +1,79 @@
+package is.mjolnir.android.activities;
+
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import is.mjolnir.android.R;
+import is.mjolnir.android.models.InstagramCache;
+import is.mjolnir.android.models.instagram.InstagramImage;
+import is.mjolnir.android.views.SquaredImageView;
+
+public class ImageDetailActivity extends ActionBarActivity {
+
+    private SquaredImageView imageView;
+    private int position;
+    private InstagramImage instagramImage;
+
+    private TextView tvLabel, tvOwner;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_image_detail);
+        position = getIntent().getIntExtra("position", 0);
+        tvLabel = (TextView) findViewById(R.id.imageDetailText);
+        tvOwner = (TextView) findViewById(R.id.imageDetailOwner);
+        setTitle("");
+
+
+        instagramImage = InstagramCache.instagramImages.get(position);
+        imageView = (SquaredImageView) findViewById(R.id.imageDetailView);
+        String label = instagramImage.caption.text;
+        String url = instagramImage.images.standard_resolution.url;
+        String owner = instagramImage.caption.from.username;
+
+        //String owner = instagramImage.type // TODO: fetch this
+
+
+
+        // Trigger the download of the URL asynchronously into the image view.
+        Picasso.with(this) //
+                .load(url) //
+                .placeholder(R.drawable.placeholder) //
+                .error(R.drawable.error) //
+                .fit() //
+                .tag(this) //
+                .into(imageView);
+
+        tvLabel.setText(label);
+        tvOwner.setText(owner);
+
+    }
+
+
+    /*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_image_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    */
+}

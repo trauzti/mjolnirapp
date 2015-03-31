@@ -109,7 +109,7 @@
 
     <Button
         android:id="@+id/instagramButton"
-        android:text="#mjolnirmma"
+        android:text="Instagram #mjolnirmma"
         android:background="@color/mjolnirblack"
         android:layout_marginBottom="2dp"
         android:textColor="@color/mjolnirwhite"

@@ -1,0 +1,34 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="is.mjolnir.android.activities.ImageDetailActivity">
+
+    <is.mjolnir.android.views.SquaredImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imageDetailView"
+        />
+
+    <is.mjolnir.android.fonts.OpenSansBoldTextView
+        android:id="@+id/imageDetailOwner"
+        android:layout_below="@id/imageDetailView"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="1dp"
+        android:textColor="@color/mjolnirgray"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
+
+    <is.mjolnir.android.fonts.OpenSansLightTextView
+        android:id="@+id/imageDetailText"
+        android:layout_below="@id/imageDetailOwner"
+        android:layout_margin="1dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/mjolnirred"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"/>
+
+</RelativeLayout>

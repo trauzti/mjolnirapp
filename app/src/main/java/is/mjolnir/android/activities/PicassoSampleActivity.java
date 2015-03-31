@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 import is.mjolnir.android.R;
 import is.mjolnir.android.lists.PicassoSampleAdapter;
 
-abstract class PicassoSampleActivity extends ActionBarActivity {
+public abstract class PicassoSampleActivity extends ActionBarActivity {
     private ToggleButton showHide;
     private FrameLayout sampleContent;
 
@@ -29,7 +29,7 @@ abstract class PicassoSampleActivity extends ActionBarActivity {
         activityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                //adapter.getItem(position).launch(PicassoSampleActivity.this);
+                //adapter.getItem(position).launch(PicassoSampleActivity.this, position);
             }
         });
 

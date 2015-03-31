@@ -29,7 +29,9 @@ import static android.widget.ImageView.ScaleType.CENTER_CROP;
 
 public final class SampleGridViewAdapter extends BaseAdapter {
     private final Context mContext;
-    private final List<String> urls = InstagramCache.instagramURLs;
+    //private final List<String> urls = InstagramCache.instagramURLsStandardRes;
+    private final List<String> urls = InstagramCache.instagramURLsLowRes;
+
 
     private boolean mLoadingMore = true;
     private InstagramApiService instagramApiService;
@@ -45,7 +47,8 @@ public final class SampleGridViewAdapter extends BaseAdapter {
                 .create();
 
         if (BuildConfig.DEBUG) {
-            logLevel = RestAdapter.LogLevel.FULL;
+            logLevel = RestAdapter.LogLevel.BASIC;
+            //logLevel = RestAdapter.LogLevel.FULL;
         }
 
         restAdapter = new RestAdapter.Builder()
@@ -65,13 +68,12 @@ public final class SampleGridViewAdapter extends BaseAdapter {
 
                 for (InstagramImage instagramImage : instagramResponse.data) {
                     try {
-                        String standardResolution = instagramImage.images.standard_resolution.url;
                         String lowResolution = instagramImage.images.low_resolution.url;
-                        // TODO: Store both resolutions and open a bigger image with higher resolution when clicked
 
                         //tvInstagramResults.setText(tvInstagramResults.getText().toString() + "\n" + standardResolution);
 
-                        InstagramCache.instagramURLs.add(lowResolution);
+                        InstagramCache.instagramURLsLowRes.add(lowResolution);
+                        InstagramCache.instagramImages.add(instagramImage);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -91,7 +93,8 @@ public final class SampleGridViewAdapter extends BaseAdapter {
         };
 
         instagramApiService = restAdapter.create(InstagramApiService.class);
-        InstagramCache.instagramURLs.clear();
+        InstagramCache.instagramImages.clear();
+        InstagramCache.instagramURLsLowRes.clear();
 
         instagramApiService.getFirstImages("ebcc90c8e531481f99e39fbccfe6b9e1", instagramCallback);
 
