@@ -98,5 +98,11 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+    public void openNewsFeed(View view) {
+        //startActivity(new Intent(this, InstagramFeed.class));
+        startActivity(new Intent(this, MjolnirNews.class));
+
+    }
+
 
 }

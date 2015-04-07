@@ -12,5 +12,6 @@
     <string name="title_activity_customize_classes">CustomizeClasses</string>
     <string name="title_activity_instagram_feed">InstagramFeed</string>
     <string name="title_activity_image_detail">ImageDetailActivity</string>
+    <string name="title_activity_mjolnir_news">MjolnirNews</string>
 
 </resources>

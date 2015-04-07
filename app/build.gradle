@@ -52,18 +52,17 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
-
     // Support Material theme in older devices
     compile 'com.android.support:appcompat-v7:21.0.+'
     compile('com.crashlytics.sdk.android:crashlytics:2.2.2@aar') {
         transitive = true;
     }
-
     // retrofit
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-
     // picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
-
+    // XML parsing
+    compile 'org.apache.commons:commons-lang3:3.0'
+    compile files('libs/pojoxml-1.0.jar')
+    compile project(':sAXRSSReader')
 }

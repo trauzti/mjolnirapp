@@ -119,4 +119,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+
+    <Button
+        android:layout_toRightOf="@id/instagramButton"
+        android:id="@+id/newsButton"
+        android:text="Fréttir"
+        android:background="@color/mjolnirblack"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/mjolnirwhite"
+        android:layout_centerHorizontal="true"
+        android:onClick="openNewsFeed"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>
