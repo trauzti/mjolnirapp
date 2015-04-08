@@ -16,17 +16,18 @@
 
 package nl.matshofman.saxrssreader;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class RssHandler extends DefaultHandler {
 	
 	private RssFeed rssFeed;
 	private RssItem rssItem;
 	private StringBuilder stringBuilder;
+
 
 	@Override
 	public void startDocument() {

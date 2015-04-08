@@ -2,6 +2,7 @@ package is.mjolnir.android.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,6 +35,12 @@ public class InstaGridView extends PicassoSampleActivity {
                 startActivity(intent);
             }
         });
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            // TODO: select #mjolnirmma or @mjolnirmma here
+            // OR hide the actionbar
+        }
         setTitle("#mjolnirmma");
     }
 

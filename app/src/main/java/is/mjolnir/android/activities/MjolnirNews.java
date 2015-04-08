@@ -1,17 +1,21 @@
 package is.mjolnir.android.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import com.crashlytics.android.Crashlytics;
 
 import java.net.URL;
 import java.util.ArrayList;
 
+import is.mjolnir.android.BuildConfig;
 import is.mjolnir.android.R;
 import nl.matshofman.saxrssreader.RssFeed;
 import nl.matshofman.saxrssreader.RssItem;
@@ -24,13 +28,37 @@ public class MjolnirNews extends ActionBarActivity {
     https://androidresearch.wordpress.com/2012/01/21/creating-a-simple-rss-application-in-android/
      */
 
-    TextView newsText;
+    private ListView newsList;
+    private TextView newsText;
+    // Binding data
+    ArrayAdapter adapter;
+    ArrayList<String> headlines;
+    ArrayList<String> links;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mjolnir_news);
 
         newsText = (TextView) findViewById(R.id.newsText);
+        newsList = (ListView) findViewById(R.id.newsList);
+
+        headlines = new ArrayList();
+        links = new ArrayList();
+
+        adapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, headlines);
+
+        newsList.setAdapter(adapter);
+        newsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Uri uri = Uri.parse(links.get(position));
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
 
         new Thread() {
             public void run() {
@@ -43,6 +71,10 @@ public class MjolnirNews extends ActionBarActivity {
                     ArrayList<RssItem> rssItems = feed.getRssItems();
                     String s = "";
                     for (RssItem rssItem : rssItems) {
+                        String headline = String.format("%s\n%s", rssItem.getPubDate(), rssItem.getTitle());
+                        headlines.add(headline);
+                        links.add(rssItem.getLink());
+                        /*
                         Log.d("RSS Reader", rssItem.getTitle());
                         s += rssItem.getPubDate() + "\n";
                         s += rssItem.getTitle() + "\n";
@@ -51,17 +83,23 @@ public class MjolnirNews extends ActionBarActivity {
                         s += rssItem.getContent() + "\n";
                         s += rssItem.getFeed() + "\n";
                         s += "\n";
+                        */
                         //newsText.setText(newsText.getText().toString() + rssItem.getTitle() + "\n");
                     }
                     final String ss = s;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            newsText.setText(ss);
+                            //newsText.setText(ss);
+                            adapter.notifyDataSetChanged();
                         }
                     });
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    if (BuildConfig.REPORT_TO_CRASHLYTICS) {
+                        Crashlytics.logException(e);
+                    } else {
+                        e.printStackTrace();
+                    }
                 }
 
 
@@ -81,9 +119,10 @@ public class MjolnirNews extends ActionBarActivity {
 
         }
         */
-
+        setTitle("");
     }
 
+    /*
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,6 +145,7 @@ public class MjolnirNews extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    */
 
 
     public void openSchedule(View view) {
