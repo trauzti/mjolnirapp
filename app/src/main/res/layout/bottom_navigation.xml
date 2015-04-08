@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_gravity="bottom"
+    android:layout_alignParentBottom="true"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/scheduleButton"
+        android:background="@drawable/mjolnirnavigationbuttonbackground"
+        android:text="Stundaskrá"
+        android:textColor="@color/mjolnirwhite"
+        android:onClick="openSchedule"
+        android:layout_weight="0.33"
+        android:layout_width="0dp"
+        android:layout_height="50dp" />
+
+    <Button
+        android:id="@+id/instagramButton"
+        android:background="@drawable/mjolnirnavigationbuttonbackground"
+        android:text="Instagram"
+        android:textColor="@color/mjolnirwhite"
+        android:onClick="openInstagramFeed"
+        android:layout_weight="0.33"
+        android:layout_width="0dp"
+        android:layout_height="50dp" />
+
+    <Button
+        android:id="@+id/newsButton"
+        android:background="@drawable/mjolnirnavigationbuttonbackground"
+        android:text="Fréttir"
+        android:textColor="@color/mjolnirwhite"
+        android:onClick="openNewsFeed"
+        android:layout_weight="0.33"
+        android:layout_width="0dp"
+        android:layout_height="50dp" />
+
+    <!--
+    <Button
+        android:layout_weight="0.25"
+        android:layout_width="0dp"
+        android:layout_height="50dp" />
+
+     -->
+</LinearLayout>

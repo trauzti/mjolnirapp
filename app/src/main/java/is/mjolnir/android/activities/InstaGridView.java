@@ -37,4 +37,20 @@ public class InstaGridView extends PicassoSampleActivity {
         setTitle("#mjolnirmma");
     }
 
+    public void openSchedule(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
+
+    public void openInstagramFeed(View view) {
+
+    }
+
+    public void openNewsFeed(View view) {
+        Intent intent = new Intent(this, MjolnirNews.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
+
 }

@@ -1,10 +1,12 @@
 package is.mjolnir.android.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import java.net.URL;
@@ -42,7 +44,13 @@ public class MjolnirNews extends ActionBarActivity {
                     String s = "";
                     for (RssItem rssItem : rssItems) {
                         Log.d("RSS Reader", rssItem.getTitle());
+                        s += rssItem.getPubDate() + "\n";
                         s += rssItem.getTitle() + "\n";
+                        s += rssItem.getDescription() + "\n";
+                        s += rssItem.getLink() + "\n";
+                        s += rssItem.getContent() + "\n";
+                        s += rssItem.getFeed() + "\n";
+                        s += "\n";
                         //newsText.setText(newsText.getText().toString() + rssItem.getTitle() + "\n");
                     }
                     final String ss = s;
@@ -98,4 +106,21 @@ public class MjolnirNews extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void openSchedule(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
+
+    public void openInstagramFeed(View view) {
+        Intent intent = new Intent(this, InstaGridView.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
+
+    public void openNewsFeed(View view) {
+    }
+
 }

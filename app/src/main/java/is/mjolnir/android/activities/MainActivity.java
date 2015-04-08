@@ -92,16 +92,19 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    public void openInstagramFeed(View view) {
-        //startActivity(new Intent(this, InstagramFeed.class));
-        startActivity(new Intent(this, InstaGridView.class));
+    public void openSchedule(View view) {
+    }
 
+    public void openInstagramFeed(View view) {
+        Intent intent = new Intent(this, InstaGridView.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
     }
 
     public void openNewsFeed(View view) {
-        //startActivity(new Intent(this, InstagramFeed.class));
-        startActivity(new Intent(this, MjolnirNews.class));
-
+        Intent intent = new Intent(this, MjolnirNews.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
     }
 
 

@@ -1,11 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<GridView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/grid_view"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:numColumns="@integer/column_count"
-    android:scrollbarStyle="insideOverlay"
-    android:scrollbars="none"
-    android:listSelector="@null"
-    />
+    tools:context="is.mjolnir.android.activities.InstaGridView">
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="@integer/column_count"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="none"
+        android:listSelector="@null"
+        />
+
+
+    <include
+        layout="@layout/bottom_navigation"
+        />
+</RelativeLayout>
