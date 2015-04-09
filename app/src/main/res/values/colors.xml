@@ -4,6 +4,8 @@
 
     <color name="mjolnirred">#FF0000</color>
     <color name="mjolnirblack">#000000</color>
+    <color name="mjolnirtransparent">#00000000</color>
+
     <color name="mjolnirwhite">#FFFFFF</color>
 
     <color name="mjolnirdarkgray">#aaaaaa</color>

@@ -3,10 +3,10 @@ package is.mjolnir.android.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import is.mjolnir.android.BuildConfig;
 import is.mjolnir.android.R;
+import is.mjolnir.android.lists.MjolnirNewsAdapter;
 import nl.matshofman.saxrssreader.RssFeed;
 import nl.matshofman.saxrssreader.RssItem;
 import nl.matshofman.saxrssreader.RssReader;
@@ -30,35 +31,39 @@ public class MjolnirNews extends ActionBarActivity {
 
     private ListView newsList;
     private TextView newsText;
-    // Binding data
-    ArrayAdapter adapter;
-    ArrayList<String> headlines;
-    ArrayList<String> links;
+    private MjolnirNewsAdapter adapter;
+    private ArrayList<RssItem> rssItems = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mjolnir_news);
+        ActionBar actionBar = getSupportActionBar();
+        setTitle("");
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
 
         newsText = (TextView) findViewById(R.id.newsText);
         newsList = (ListView) findViewById(R.id.newsList);
 
-        headlines = new ArrayList();
-        links = new ArrayList();
+        adapter = new MjolnirNewsAdapter(this, rssItems);
 
-        adapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, headlines);
 
-        newsList.setAdapter(adapter);
+        /* Not working so I moved this into MjolnirNewsAdapter
         newsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Uri uri = Uri.parse(links.get(position));
+                Uri uri = Uri.parse(rssItems.get(position).getLink());
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
         });
+        */
+        newsList.setAdapter(adapter);
+
 
         new Thread() {
             public void run() {
@@ -68,13 +73,15 @@ public class MjolnirNews extends ActionBarActivity {
                     URL url = new URL("http://www.mjolnir.is/feed");
                     RssFeed feed = RssReader.read(url);
 
-                    ArrayList<RssItem> rssItems = feed.getRssItems();
                     String s = "";
+                    rssItems.clear();
+                    rssItems.addAll(feed.getRssItems());
+
+                    /*
                     for (RssItem rssItem : rssItems) {
                         String headline = String.format("%s\n%s", rssItem.getPubDate(), rssItem.getTitle());
                         headlines.add(headline);
                         links.add(rssItem.getLink());
-                        /*
                         Log.d("RSS Reader", rssItem.getTitle());
                         s += rssItem.getPubDate() + "\n";
                         s += rssItem.getTitle() + "\n";
@@ -83,14 +90,16 @@ public class MjolnirNews extends ActionBarActivity {
                         s += rssItem.getContent() + "\n";
                         s += rssItem.getFeed() + "\n";
                         s += "\n";
-                        */
                         //newsText.setText(newsText.getText().toString() + rssItem.getTitle() + "\n");
                     }
+                    */
+
                     final String ss = s;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             //newsText.setText(ss);
+
                             adapter.notifyDataSetChanged();
                         }
                     });
@@ -119,7 +128,6 @@ public class MjolnirNews extends ActionBarActivity {
 
         }
         */
-        setTitle("");
     }
 
     /*

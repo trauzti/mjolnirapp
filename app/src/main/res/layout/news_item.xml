@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <is.mjolnir.android.fonts.OpenSansLightTextView
+        android:id="@+id/list_content1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:clickable="false"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:longClickable="false"
+        android:paddingBottom="1dip"
+        android:paddingTop="1dip"
+        android:text="Date"
+        android:textColor="@color/mjolnirgray"
+        android:textSize="17dip"
+        />
+
+    <is.mjolnir.android.fonts.OpenSansLightTextView
+        android:id="@+id/list_content2"
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/list_content1"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:clickable="false"
+        android:gravity="center"
+        android:linksClickable="false"
+        android:longClickable="false"
+        android:paddingBottom="1dip"
+        android:paddingTop="1dip"
+        android:text="Title"
+        android:textColor="@color/mjolnirwhite"
+        android:textSize="17dip" />
+
+
+    <WebView
+        android:layout_below="@id/list_content2"
+        android:id="@+id/mjolnirNewsWebView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+</RelativeLayout>

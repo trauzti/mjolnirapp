@@ -36,7 +36,8 @@ public class ImageDetailActivity extends ActionBarActivity {
         position = getIntent().getIntExtra("position", 0);
         tvLabel = (TextView) findViewById(R.id.imageDetailText);
         tvOwner = (TextView) findViewById(R.id.imageDetailOwner);
-        setTitle("");
+
+
 
 
         instagramImage = InstagramCache.instagramImages.get(position);
@@ -45,7 +46,9 @@ public class ImageDetailActivity extends ActionBarActivity {
         String url = instagramImage.images.standard_resolution.url;
         String owner = instagramImage.caption.from.username;
 
-        //String owner = instagramImage.type // TODO: fetch this
+        String full_name = instagramImage.caption.from.full_name;
+        setTitle(full_name);
+
 
 
 

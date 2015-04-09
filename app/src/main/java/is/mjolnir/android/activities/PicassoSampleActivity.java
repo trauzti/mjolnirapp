@@ -25,7 +25,8 @@ public abstract class PicassoSampleActivity extends ActionBarActivity {
         super.setContentView(R.layout.picasso_sample_activity);
         sampleContent = (FrameLayout) findViewById(R.id.sample_content);
         actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.hide();
+        //actionBar.setDisplayHomeAsUpEnabled(true);
 
         final ListView activityList = (ListView) findViewById(R.id.activity_list);
         final PicassoAdapter adapter = new PicassoAdapter(this);

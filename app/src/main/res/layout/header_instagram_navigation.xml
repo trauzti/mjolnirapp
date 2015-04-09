@@ -7,38 +7,38 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
+    <!--
+            android:layout_marginRight="2dp"
+    -->
     <is.mjolnir.android.fonts.OpenSansLightButton
-        android:id="@+id/scheduleButton"
+        android:id="@+id/hashTagMjolnirMMA"
         android:background="@drawable/mjolnirnavigationbuttonbackground"
-        android:text="Stundatafla"
+        android:text="#mjolnirmma"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:textColor="@color/mjolnirwhite"
-        android:onClick="openSchedule"
-        android:layout_margin="2dp"
-        android:layout_weight="0.33"
+        android:onClick="hashTagMjolnirMMA"
+        android:layout_weight="0.50"
         android:layout_width="0dp"
         android:layout_height="50dp" />
 
     <is.mjolnir.android.fonts.OpenSansLightButton
-        android:id="@+id/instagramButton"
+        android:visibility="gone"
+        android:id="@+id/atMjolnirMMA"
         android:background="@drawable/mjolnirnavigationbuttonbackground"
-        android:text="Instagram"
+        android:text="\@mjolnirmma"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:textColor="@color/mjolnirwhite"
-        android:onClick="openInstagramFeed"
-        android:layout_margin="2dp"
-        android:layout_weight="0.33"
+        android:onClick="atMjolnirMMA"
+        android:layout_weight="0.53"
         android:layout_width="0dp"
         android:layout_height="50dp" />
 
-    <is.mjolnir.android.fonts.OpenSansLightButton
-        android:id="@+id/newsButton"
-        android:background="@drawable/mjolnirnavigationbuttonbackground"
-        android:text="Fréttir"
-        android:textColor="@color/mjolnirwhite"
-        android:onClick="openNewsFeed"
-        android:layout_margin="2dp"
-        android:layout_weight="0.33"
-        android:layout_width="0dp"
-        android:layout_height="50dp" />
 
     <!--
     <Button

@@ -1,20 +1,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rootOfGridView"
     tools:context="is.mjolnir.android.activities.InstaGridView">
 
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    <include
+        android:id="@+id/bottom_navigation"
+        layout="@layout/bottom_navigation"
+        />
+
+
+    <is.mjolnir.android.views.HeaderGridView
         android:id="@+id/grid_view"
+        android:layout_above="@id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="@integer/column_count"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="1dp"
         android:scrollbarStyle="insideOverlay"
         android:scrollbars="none"
         android:listSelector="@null"
         />
 
-
-    <include
-        layout="@layout/bottom_navigation"
-        />
 </RelativeLayout>

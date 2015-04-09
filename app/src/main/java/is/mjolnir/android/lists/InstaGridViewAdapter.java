@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -62,7 +63,7 @@ public final class InstaGridViewAdapter extends BaseAdapter {
             public void success(InstagramResponse instagramResponse, Response response) {
                 if (instagramResponse == null || instagramResponse.data == null || instagramResponse.data.size() == 0) {
                     //tvInstagramResults.setText("Ekkert fannst");
-                    Toast.makeText(mContext, "Ekkert fannst", Toast.LENGTH_SHORT).show();
+                    showToast("Ekkert fannst");
                 }
 
 
@@ -91,12 +92,12 @@ public final class InstaGridViewAdapter extends BaseAdapter {
                 if (error != null) {
                     Response reseponse = error.getResponse();
                     if (reseponse != null && reseponse.getStatus() == STATUS_TOO_MANY_REQUESTS) {
-                        Toast.makeText(mContext, "Kvótinn er búinn. Bíddu í <60 mín.", Toast.LENGTH_SHORT).show();
+                        showToast("Kvótinn er búinn. Bíddu í <60 mín.");
                     } else {
-                        Toast.makeText(mContext, "Villa kom upp", Toast.LENGTH_SHORT).show();
+                        showToast("Villa kom upp");
                     }
                 } else {
-                    Toast.makeText(mContext, "Villa kom upp", Toast.LENGTH_SHORT).show();
+                    showToast("Villa kom upp");
                 }
             }
         };
@@ -129,6 +130,14 @@ public final class InstaGridViewAdapter extends BaseAdapter {
                 .into(view);
 
         return view;
+    }
+
+    public void showToast(String msg) {
+        Toast toast = Toast.makeText(mContext, msg, Toast.LENGTH_SHORT);
+        View toastView = toast.getView();
+        TextView toastText = (TextView) toastView.findViewById(android.R.id.message);
+        toastText.setBackgroundColor(mContext.getResources().getColor(R.color.mjolnirtransparent));
+        toast.show();
     }
 
     @Override public int getCount() {
