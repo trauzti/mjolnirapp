@@ -1,11 +1,13 @@
 package is.mjolnir.android.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.crashlytics.android.Crashlytics;
 
@@ -15,11 +17,15 @@ import io.fabric.sdk.android.Fabric;
 import is.mjolnir.android.BuildConfig;
 import is.mjolnir.android.R;
 import is.mjolnir.android.models.Timetable;
+import is.mjolnir.android.views.BackgroundSetter;
 
 
 public class MainActivity extends ActionBarActivity {
 
     public final String TAG = MainActivity.class.getName();
+
+    private Drawable pressed;
+    private Button btnSchedule;
 
     /*
       http://www.rainbowbreeze.it/navigationbar-in-style-iphone-uitabbarcontroller-per-android/
@@ -42,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
 
         int[] buttonIds = {R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6, R.id.day7};
         final int[] dayIds = {Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY};
-        final String[] dayNames = {"mánudagur", "þriðjudagur", "miðvikudagur", "fimmtudagur", "föstudagur", "laugardagur", "sunnudagur"};
+        final String[] dayNames = {"Mánudagur", "Þriðjudagur", "Miðvikudagur", "Fimmtudagur", "Föstudagur", "Laugardagur", "Sunnudagur"};
 
         for (int i = 0; i < buttonIds.length; i++) {
             final int buttonId = buttonIds[i];
@@ -64,6 +70,10 @@ public class MainActivity extends ActionBarActivity {
 
 
         }
+
+        pressed = getResources().getDrawable(R.drawable.btn_mjolnir_navigation_pressed);
+        btnSchedule = (Button) findViewById(R.id.scheduleButton);
+        BackgroundSetter.setBackground(btnSchedule, pressed);
 
         findViewById(R.id.daytoday).setOnClickListener(new View.OnClickListener() {
             @Override

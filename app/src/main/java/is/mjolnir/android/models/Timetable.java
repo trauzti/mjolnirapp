@@ -188,6 +188,12 @@ public class Timetable {
 
     public static Map<String, Boolean> rejectedMap;
 
+    public static void ensureRejectedMapNotNull(Context context) {
+        if (rejectedMap == null || rejectedMap.size() == 0) {
+            loadRejectedClasses(context);
+        }
+    }
+
     public static void loadRejectedClasses(Context context) {
         if (rejectedMap == null) {
             rejectedMap = new HashMap<String, Boolean>();

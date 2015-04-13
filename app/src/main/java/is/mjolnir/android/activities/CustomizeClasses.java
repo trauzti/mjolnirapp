@@ -23,7 +23,7 @@ public class CustomizeClasses extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate savedInstanceState ==" + savedInstanceState);
-        Timetable.loadRejectedClasses(this);
+        Timetable.ensureRejectedMapNotNull(this);
 
         setContentView(R.layout.activity_customize_classes);
         lv = (ListView) findViewById(R.id.list);

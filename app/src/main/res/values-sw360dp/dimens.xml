@@ -1,7 +1,7 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="mjolnirbutton_diameter">62dp</dimen>
+    <dimen name="mjolnirbutton_diameter">58dp</dimen>
     <dimen name="mjolnirbutton_margin">6dp</dimen>
-    <dimen name="mjolnirlogo_diameter">300dp</dimen>
+    <dimen name="mjolnirlogo_diameter">280dp</dimen>
 </resources>

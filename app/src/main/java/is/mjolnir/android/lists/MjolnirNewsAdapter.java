@@ -82,7 +82,6 @@ public class MjolnirNewsAdapter extends ArrayAdapter<RssItem> {
 
         holder.mjolnirWebView.loadData(html, "text/html; charset=utf-8", null);
 
-
         return rowView;
     }
 }

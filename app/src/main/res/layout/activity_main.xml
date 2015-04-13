@@ -20,6 +20,7 @@
         android:layout_below="@id/mjolnirlogo"
         android:gravity="center"
         android:orientation="horizontal"
+        android:layout_margin="2dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         

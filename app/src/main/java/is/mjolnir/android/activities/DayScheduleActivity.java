@@ -34,6 +34,8 @@ public class DayScheduleActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_schedule);
+        Timetable.ensureRejectedMapNotNull(this);
+
         lv = (ListView) findViewById(R.id.list);
         Intent i = getIntent();
         day = i.getIntExtra("day", 0);

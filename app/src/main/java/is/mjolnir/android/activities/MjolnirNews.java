@@ -1,12 +1,12 @@
 package is.mjolnir.android.activities;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import is.mjolnir.android.BuildConfig;
 import is.mjolnir.android.R;
 import is.mjolnir.android.lists.MjolnirNewsAdapter;
+import is.mjolnir.android.views.BackgroundSetter;
 import nl.matshofman.saxrssreader.RssFeed;
 import nl.matshofman.saxrssreader.RssItem;
 import nl.matshofman.saxrssreader.RssReader;
@@ -33,6 +34,8 @@ public class MjolnirNews extends ActionBarActivity {
     private TextView newsText;
     private MjolnirNewsAdapter adapter;
     private ArrayList<RssItem> rssItems = new ArrayList<>();
+    private Drawable pressed;
+    private Button btnNews;
 
 
     @Override
@@ -45,6 +48,10 @@ public class MjolnirNews extends ActionBarActivity {
             actionBar.hide();
         }
 
+
+        pressed = getResources().getDrawable(R.drawable.btn_mjolnir_navigation_pressed);
+        btnNews = (Button) findViewById(R.id.newsButton);
+        BackgroundSetter.setBackground(btnNews, pressed);
 
         newsText = (TextView) findViewById(R.id.newsText);
         newsList = (ListView) findViewById(R.id.newsList);
@@ -64,12 +71,9 @@ public class MjolnirNews extends ActionBarActivity {
         */
         newsList.setAdapter(adapter);
 
-
         new Thread() {
             public void run() {
                 try {
-
-
                     URL url = new URL("http://www.mjolnir.is/feed");
                     RssFeed feed = RssReader.read(url);
 

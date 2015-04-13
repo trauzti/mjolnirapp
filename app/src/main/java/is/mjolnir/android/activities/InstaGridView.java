@@ -18,6 +18,7 @@ import android.widget.Toast;
 import is.mjolnir.android.R;
 import is.mjolnir.android.lists.InstaGridViewAdapter;
 import is.mjolnir.android.lists.PicassoScrollListener;
+import is.mjolnir.android.views.BackgroundSetter;
 import is.mjolnir.android.views.HeaderGridView;
 
 public class InstaGridView extends PicassoSampleActivity {
@@ -32,6 +33,8 @@ public class InstaGridView extends PicassoSampleActivity {
     LinearLayout llHeader;
     Drawable pressed, unPressed;
 
+    private Button btnInstagram;
+
 
     final boolean USE_HEADER = true;
 
@@ -42,9 +45,12 @@ public class InstaGridView extends PicassoSampleActivity {
         setContentView(R.layout.sample_gridview_activity);
         Log.d(TAG, "onCreate savedInstanceState ==" + savedInstanceState);
         rlRootOfGridView = (RelativeLayout) findViewById(R.id.rootOfGridView);
+        btnInstagram = (Button) findViewById(R.id.instagramButton);
 
         pressed = getResources().getDrawable(R.drawable.btn_mjolnir_navigation_pressed);
         unPressed = getResources().getDrawable(R.drawable.btn_mjolnir_navigation);
+
+        BackgroundSetter.setBackground(btnInstagram, pressed);
 
         gv = (HeaderGridView) findViewById(R.id.grid_view);
         if (adapter == null) {
@@ -107,8 +113,8 @@ public class InstaGridView extends PicassoSampleActivity {
 
 
     public void hashTagMjolnirMMA(View view) {
-        setBackground(bHashTagMjolnirMMA, pressed);
-        setBackground(bAtMjolnirMMA, unPressed);
+        BackgroundSetter.setBackground(bHashTagMjolnirMMA, pressed);
+        BackgroundSetter.setBackground(bAtMjolnirMMA, unPressed);
     }
 
     public void atMjolnirMMA(View view) {
@@ -118,16 +124,10 @@ public class InstaGridView extends PicassoSampleActivity {
         toastText.setBackgroundColor(getResources().getColor(R.color.mjolnirtransparent));
         toast.show();
         if (false) {
-            setBackground(bAtMjolnirMMA, pressed);
-            setBackground(bHashTagMjolnirMMA, unPressed);
+            BackgroundSetter.setBackground(bAtMjolnirMMA, pressed);
+            BackgroundSetter.setBackground(bHashTagMjolnirMMA, unPressed);
         }
     }
 
-    public static void setBackground(View view, Drawable drawable) {
-        if (Build.VERSION.SDK_INT >= 16) {
-            view.setBackground(drawable);
-        } else {
-            view.setBackgroundDrawable(drawable);
-        }
-    }
+
 }
