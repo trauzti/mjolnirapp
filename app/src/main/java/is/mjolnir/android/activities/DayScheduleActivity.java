@@ -8,16 +8,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import is.mjolnir.android.BuildConfig;
 import is.mjolnir.android.R;
+import is.mjolnir.android.api.MjolnirTimetableApiService;
 import is.mjolnir.android.lists.Header;
 import is.mjolnir.android.lists.Item;
 import is.mjolnir.android.lists.ListItem;
 import is.mjolnir.android.lists.TwoTextArrayAdapter;
 import is.mjolnir.android.models.ClassAndTime;
 import is.mjolnir.android.models.Timetable;
+import is.mjolnir.android.models.timetable.Time;
+import is.mjolnir.android.models.timetable.TimetableResponse;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 
 public class DayScheduleActivity extends ActionBarActivity {
@@ -27,6 +39,9 @@ public class DayScheduleActivity extends ActionBarActivity {
     private TwoTextArrayAdapter adapter;
     private int day = 0;
     private String dayName = "";
+    private MjolnirTimetableApiService timetableApiService;
+    private RestAdapter restAdapter;
+
 
 
     private ListView lv;
@@ -35,6 +50,22 @@ public class DayScheduleActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_schedule);
         Timetable.ensureRejectedMapNotNull(this);
+
+        RestAdapter.LogLevel logLevel = RestAdapter.LogLevel.NONE;
+
+        Gson gson = new GsonBuilder()
+                .create();
+
+        if (BuildConfig.DEBUG) {
+            logLevel = RestAdapter.LogLevel.BASIC;
+            //logLevel = RestAdapter.LogLevel.FULL;
+        }
+
+        restAdapter = new RestAdapter.Builder()
+                .setEndpoint("https://s3-eu-west-1.amazonaws.com")
+                .setConverter(new GsonConverter(gson))
+                .setLogLevel(logLevel)
+                .build();
 
         lv = (ListView) findViewById(R.id.list);
         Intent i = getIntent();
@@ -52,6 +83,69 @@ public class DayScheduleActivity extends ActionBarActivity {
         adapter = new TwoTextArrayAdapter(this, items);
         lv.setAdapter(adapter);
         setItems();
+
+        timetableApiService = restAdapter.create(MjolnirTimetableApiService.class);
+
+        timetableApiService.getTimeTable(new Callback<TimetableResponse>() {
+            @Override
+            public void success(TimetableResponse timetableResponse, Response response) {
+                Time classtime = timetableResponse.day_1.get(0);
+                System.out.println(classtime.room);
+                System.out.println(classtime.teacher);
+                System.out.println(classtime.time);
+                System.out.println(classtime.title);
+                setItems(timetableResponse);
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
+
+    }
+
+    public void setItems(TimetableResponse timetableResponse) {
+        items.clear();
+
+        ArrayList<Time> times = new ArrayList<>();
+        switch(day) {
+            case 0:
+                times = timetableResponse.day_1;
+                break;
+            case 1:
+                times = timetableResponse.day_2;
+                break;
+            case 2:
+                times = timetableResponse.day_3;
+                break;
+            case 3:
+                times = timetableResponse.day_4;
+                break;
+            case 4:
+                times = timetableResponse.day_5;
+                break;
+            case 5:
+                times = timetableResponse.day_6;
+                break;
+            case 6:
+                times = timetableResponse.day_7;
+                break;
+            default:
+                break;
+        }
+        // TODO: Fis the rooms
+        for (Time time : times) {
+            items.add(new Header(time.room));
+            //if (!Timetable.rejectedMap.get(time.title)) {
+                items.add(new ListItem(time.time, time.title));
+            //}
+
+        }
+
+        adapter.notifyDataSetChanged();
     }
 
 

@@ -15,6 +15,7 @@
 -libraryjars libs
 -keep class is.mjolnir.android.** { *; }
 -keep class com.crashlytics.** { *; }
+-keep class io.fabric.** { *; }
 -keep class android.support.v4.app.** { *; }
 -keep interface android.support.v4.app.** { *; }
 

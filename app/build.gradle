@@ -23,8 +23,8 @@ android {
         applicationId "is.mjolnir.android"
         minSdkVersion 10
         targetSdkVersion 21
-        versionCode 15
-        versionName "1.65"
+        versionCode 16
+        versionName "1.66"
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
                 output.outputFile = new File(output.outputFile.parent, "mjolnir-" + defaultConfig.versionName + ".apk")
