@@ -1,9 +1,11 @@
 package is.mjolnir.android.activities;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -11,6 +13,13 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +48,6 @@ public class DayScheduleActivity extends ActionBarActivity {
     private TwoTextArrayAdapter adapter;
     private int day = 0;
     private String dayName = "";
-    private MjolnirTimetableApiService timetableApiService;
-    private RestAdapter restAdapter;
-
-
 
     private ListView lv;
     @Override
@@ -50,22 +55,6 @@ public class DayScheduleActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_schedule);
         Timetable.ensureRejectedMapNotNull(this);
-
-        RestAdapter.LogLevel logLevel = RestAdapter.LogLevel.NONE;
-
-        Gson gson = new GsonBuilder()
-                .create();
-
-        if (BuildConfig.DEBUG) {
-            logLevel = RestAdapter.LogLevel.BASIC;
-            //logLevel = RestAdapter.LogLevel.FULL;
-        }
-
-        restAdapter = new RestAdapter.Builder()
-                .setEndpoint("https://s3-eu-west-1.amazonaws.com")
-                .setConverter(new GsonConverter(gson))
-                .setLogLevel(logLevel)
-                .build();
 
         lv = (ListView) findViewById(R.id.list);
         Intent i = getIntent();
@@ -78,74 +67,10 @@ public class DayScheduleActivity extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(dayName);
 
-
-
         adapter = new TwoTextArrayAdapter(this, items);
         lv.setAdapter(adapter);
-        setItems();
 
-        timetableApiService = restAdapter.create(MjolnirTimetableApiService.class);
-
-        timetableApiService.getTimeTable(new Callback<TimetableResponse>() {
-            @Override
-            public void success(TimetableResponse timetableResponse, Response response) {
-                Time classtime = timetableResponse.day_1.get(0);
-                System.out.println(classtime.room);
-                System.out.println(classtime.teacher);
-                System.out.println(classtime.time);
-                System.out.println(classtime.title);
-                setItems(timetableResponse);
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
-
-
-    }
-
-    public void setItems(TimetableResponse timetableResponse) {
-        items.clear();
-
-        ArrayList<Time> times = new ArrayList<>();
-        switch(day) {
-            case 0:
-                times = timetableResponse.day_1;
-                break;
-            case 1:
-                times = timetableResponse.day_2;
-                break;
-            case 2:
-                times = timetableResponse.day_3;
-                break;
-            case 3:
-                times = timetableResponse.day_4;
-                break;
-            case 4:
-                times = timetableResponse.day_5;
-                break;
-            case 5:
-                times = timetableResponse.day_6;
-                break;
-            case 6:
-                times = timetableResponse.day_7;
-                break;
-            default:
-                break;
-        }
-        // TODO: Fis the rooms
-        for (Time time : times) {
-            items.add(new Header(time.room));
-            //if (!Timetable.rejectedMap.get(time.title)) {
-                items.add(new ListItem(time.time, time.title));
-            //}
-
-        }
-
-        adapter.notifyDataSetChanged();
+        loadAndSetItems();
     }
 
 
@@ -217,7 +142,16 @@ public class DayScheduleActivity extends ActionBarActivity {
         if (Timetable.needToRefreshRejectedClasses) {
             Timetable.needToRefreshRejectedClasses = false;
             //Log.d(TAG, "Refreshing rejected classes");
+            loadAndSetItems();
+        }
+    }
+
+    public void loadAndSetItems() {
+
+        if (Timetable.timetableResponse != null) {
             setItems();
         }
+
+
     }
 }

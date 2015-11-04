@@ -10,14 +10,28 @@ import android.view.View;
 import android.widget.Button;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.Calendar;
 
 import io.fabric.sdk.android.Fabric;
 import is.mjolnir.android.BuildConfig;
 import is.mjolnir.android.R;
+import is.mjolnir.android.api.MjolnirTimetableApiService;
 import is.mjolnir.android.models.Timetable;
+import is.mjolnir.android.models.timetable.TimetableResponse;
 import is.mjolnir.android.views.BackgroundSetter;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -26,6 +40,9 @@ public class MainActivity extends ActionBarActivity {
 
     private Drawable pressed;
     private Button btnSchedule;
+    private MjolnirTimetableApiService timetableApiService;
+    private RestAdapter restAdapter;
+
 
     /*
       http://www.rainbowbreeze.it/navigationbar-in-style-iphone-uitabbarcontroller-per-android/
@@ -99,8 +116,74 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+
+        RestAdapter.LogLevel logLevel = RestAdapter.LogLevel.NONE;
+
+        Gson gson = new GsonBuilder()
+                .create();
+
+        if (BuildConfig.DEBUG) {
+            logLevel = RestAdapter.LogLevel.BASIC;
+            //logLevel = RestAdapter.LogLevel.FULL;
+        }
+
+        restAdapter = new RestAdapter.Builder()
+                .setEndpoint("https://s3-eu-west-1.amazonaws.com")
+                .setConverter(new GsonConverter(gson))
+                .setLogLevel(logLevel)
+                .build();
+
+        timetableApiService = restAdapter.create(MjolnirTimetableApiService.class);
+        loadTimetable();
+
+
+
     }
 
+    public void loadTimetable() {
+        timetableApiService.getTimeTable(new Callback<TimetableResponse>() {
+            @Override
+            public void success(TimetableResponse timetableResponse, Response response) {
+                Timetable.timetableResponse = timetableResponse;
+                Timetable.loadRejectedClasses(MainActivity.this);
+                // TODO: Save the JSON onto the device
+                Log.d(TAG, "json=" + response.toString());
+                //getApplicationContext().getAssets().
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                try {
+                    Timetable.loadRejectedClasses(MainActivity.this);
+                    InputStream is = getApplicationContext().getAssets().open("timetable.json");
+                    String json = stringFromInputStream(is);
+                    Gson gson = new Gson();
+                    TimetableResponse timetableResponse = gson.fromJson(json, TimetableResponse.class);
+                    Timetable.timetableResponse = timetableResponse;
+                    Log.d(TAG, "jsonfromassets=" + json);
+                } catch (IOException e) {
+                    Log.e(TAG, "Error reading json from device", e);
+                }
+
+            }
+        });
+
+    }
+
+
+    private String stringFromInputStream(InputStream paramInputStream) throws IOException {
+        StringWriter localStringWriter = new StringWriter();
+        char[] arrayOfChar = new char[1024];
+        BufferedReader localBufferedReader = new BufferedReader(new InputStreamReader(paramInputStream, "UTF-8"));
+        while (true) {
+            int i = localBufferedReader.read(arrayOfChar);
+            if (i == -1)
+                break;
+            localStringWriter.write(arrayOfChar, 0, i);
+        }
+        return localStringWriter.toString();
+    }
 
     public void openSchedule(View view) {
     }
