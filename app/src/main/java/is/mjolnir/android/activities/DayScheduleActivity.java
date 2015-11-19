@@ -1,23 +1,44 @@
 package is.mjolnir.android.activities;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import is.mjolnir.android.BuildConfig;
 import is.mjolnir.android.R;
+import is.mjolnir.android.api.MjolnirTimetableApiService;
 import is.mjolnir.android.lists.Header;
 import is.mjolnir.android.lists.Item;
 import is.mjolnir.android.lists.ListItem;
 import is.mjolnir.android.lists.TwoTextArrayAdapter;
 import is.mjolnir.android.models.ClassAndTime;
 import is.mjolnir.android.models.Timetable;
+import is.mjolnir.android.models.timetable.Time;
+import is.mjolnir.android.models.timetable.TimetableResponse;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 
 public class DayScheduleActivity extends ActionBarActivity {
@@ -27,7 +48,6 @@ public class DayScheduleActivity extends ActionBarActivity {
     private TwoTextArrayAdapter adapter;
     private int day = 0;
     private String dayName = "";
-
 
     private ListView lv;
     @Override
@@ -47,11 +67,10 @@ public class DayScheduleActivity extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(dayName);
 
-
-
         adapter = new TwoTextArrayAdapter(this, items);
         lv.setAdapter(adapter);
-        setItems();
+
+        loadAndSetItems();
     }
 
 
@@ -123,7 +142,16 @@ public class DayScheduleActivity extends ActionBarActivity {
         if (Timetable.needToRefreshRejectedClasses) {
             Timetable.needToRefreshRejectedClasses = false;
             //Log.d(TAG, "Refreshing rejected classes");
+            loadAndSetItems();
+        }
+    }
+
+    public void loadAndSetItems() {
+
+        if (Timetable.timetableResponse != null) {
             setItems();
         }
+
+
     }
 }

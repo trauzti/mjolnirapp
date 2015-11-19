@@ -55,13 +55,14 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             >
+        </activity>
+
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a07eeec33dda94a61c876eefc7bd05ceb5265922" />
 
 
-        </activity>
     </application>
 
 </manifest>

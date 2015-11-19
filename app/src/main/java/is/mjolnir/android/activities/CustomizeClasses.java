@@ -6,7 +6,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewConfiguration;
 import android.widget.ListView;
+
+import java.lang.reflect.Field;
 
 import is.mjolnir.android.R;
 import is.mjolnir.android.lists.InteractiveArrayAdapter;
@@ -38,7 +41,26 @@ public class CustomizeClasses extends ActionBarActivity {
         lv.setAdapter(adapter);
 
 
+        //makeActionOverflowMenuShown(); // virkar ekki ....
     }
+
+
+    // Overflow icon was not showing on Samsung S2
+    // http://stackoverflow.com/a/13098824/1117810
+    private void makeActionOverflowMenuShown() {
+        //devices with hardware menu button (e.g. Samsung Note) don't show action overflow menu
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+            if (menuKeyField != null) {
+                menuKeyField.setAccessible(true);
+                menuKeyField.setBoolean(config, false);
+            }
+        } catch (Exception e) {
+            Log.d(TAG, e.getLocalizedMessage());
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

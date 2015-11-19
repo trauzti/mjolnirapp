@@ -117,11 +117,11 @@ ADDED from AndroidManifest.xml:52:9
 	android:name
 		ADDED from AndroidManifest.xml:53:13
 meta-data#io.fabric.ApiKey
-ADDED from AndroidManifest.xml:59:9
+ADDED from AndroidManifest.xml:61:9
 	android:name
-		ADDED from AndroidManifest.xml:60:13
+		ADDED from AndroidManifest.xml:62:13
 	android:value
-		ADDED from AndroidManifest.xml:61:13
+		ADDED from AndroidManifest.xml:63:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:appcompat-v7:21.0.3:15:5
