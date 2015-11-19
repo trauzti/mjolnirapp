@@ -1,6 +1,8 @@
 package is.mjolnir.android.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -128,7 +130,7 @@ public class MainActivity extends ActionBarActivity {
         }
 
         restAdapter = new RestAdapter.Builder()
-                .setEndpoint("https://s3-eu-west-1.amazonaws.com")
+                .setEndpoint("https://raw.githubusercontent.com")
                 .setConverter(new GsonConverter(gson))
                 .setLogLevel(logLevel)
                 .build();
@@ -140,31 +142,63 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+    public void saveJSONTimetableToPrefs(String json) {
+        SharedPreferences keyValues = getApplicationContext().getSharedPreferences("mjolnir", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = keyValues.edit();
+        editor.putString( "timetable", json );
+        editor.commit();
+        Log.d(TAG, "saveJSONTimetableToPrefs success");
+        //Log.d(TAG, "json="+json);
+    }
+
+    public String getJSONTimetableFromPrefs() {
+        SharedPreferences keyValues = getApplicationContext().getSharedPreferences("mjolnir", Context.MODE_PRIVATE);
+        String json = keyValues.getString("timetable", null);
+        if (json == null) {
+            Log.d(TAG, "getJSONTimetableFromPrefs failure");
+        } else {
+            Log.d(TAG, "getJSONTimetableFromPrefs success");
+        }
+        //Log.d(TAG, "json="+json);
+        return json;
+    }
+
+    public String getJSONTimetableFromAssets() {
+        try {
+            InputStream is = getApplicationContext().getAssets().open("timetable.json");
+            String json = stringFromInputStream(is);
+            Log.d(TAG, "getJSONTimetableFromAssets success");
+            //Log.d(TAG, "json="+json);
+            return json;
+        }  catch(IOException e){
+            Log.e(TAG, "Error reading json from device", e);
+        }
+        Log.d(TAG, "getJSONTimetableFromAssets failure");
+        return null;
+    }
+
     public void loadTimetable() {
         timetableApiService.getTimeTable(new Callback<TimetableResponse>() {
             @Override
             public void success(TimetableResponse timetableResponse, Response response) {
+                Log.d(TAG, "timetableApiService.getTimetable success");
                 Timetable.timetableResponse = timetableResponse;
                 Timetable.loadRejectedClasses(MainActivity.this);
-                // TODO: Save the JSON onto the device
-                Log.d(TAG, "json=" + response.toString());
-                //getApplicationContext().getAssets().
-
+                MainActivity.this.saveJSONTimetableToPrefs(response.toString());
             }
 
             @Override
             public void failure(RetrofitError error) {
-                try {
-                    Timetable.loadRejectedClasses(MainActivity.this);
-                    InputStream is = getApplicationContext().getAssets().open("timetable.json");
-                    String json = stringFromInputStream(is);
-                    Gson gson = new Gson();
-                    TimetableResponse timetableResponse = gson.fromJson(json, TimetableResponse.class);
-                    Timetable.timetableResponse = timetableResponse;
-                    Log.d(TAG, "jsonfromassets=" + json);
-                } catch (IOException e) {
-                    Log.e(TAG, "Error reading json from device", e);
+                Log.d(TAG, "timetableApiService.getTimetable failure");
+                String json = MainActivity.this.getJSONTimetableFromPrefs();
+                if (json == null) {
+                    json = MainActivity.this.getJSONTimetableFromAssets();
+                    MainActivity.this.saveJSONTimetableToPrefs(json);
                 }
+                Gson gson = new Gson();
+                TimetableResponse timetableResponse = gson.fromJson(json, TimetableResponse.class);
+                Timetable.timetableResponse = timetableResponse;
+                Timetable.loadRejectedClasses(MainActivity.this);
 
             }
         });

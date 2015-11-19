@@ -9,6 +9,7 @@ import retrofit.http.GET;
  */
 public interface MjolnirTimetableApiService {
 
-    @GET("/mjolnir-timetable/timetable.json")
+    @GET("/trauzti/mjolnir-timetable/master/timetable.json")
     void getTimeTable(Callback<TimetableResponse> cb);
+    // https://raw.githubusercontent.com/trauzti/mjolnir-timetable/master/timetable.json
 }
